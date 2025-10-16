@@ -28,6 +28,7 @@ import {
 } from '@heroicons/react/24/outline';
 import { CheckCircleIcon as CheckCircleSolid, StarIcon as StarSolid } from '@heroicons/react/24/solid';
 import Image from 'next/image';
+import Link from 'next/link';
 import { useState, useEffect, useCallback } from 'react';
 import useEmblaCarousel from 'embla-carousel-react';
 import Autoplay from 'embla-carousel-autoplay';
@@ -598,18 +599,18 @@ export default function Home() {
                 <CubeIcon className="w-4 h-4 group-hover:scale-110 transition-transform" />
                 <span>Products</span>
               </a>
-              <a href="#therapies" className="text-gray-700 hover:text-blue-600 hover:bg-blue-50 transition-all px-3 py-2 rounded-xl font-semibold flex items-center gap-1.5 group">
+              <Link href="/clinical-applications" className="text-gray-700 hover:text-blue-600 hover:bg-blue-50 transition-all px-3 py-2 rounded-xl font-semibold flex items-center gap-1.5 group">
                 <HeartIcon className="w-4 h-4 group-hover:scale-110 transition-transform" />
-                <span>Therapies</span>
-              </a>
+                <span>Clinical Applications</span>
+              </Link>
               <a href="#why-us" className="text-gray-700 hover:text-blue-600 hover:bg-blue-50 transition-all px-3 py-2 rounded-xl font-semibold flex items-center gap-1.5 group">
                 <TrophyIcon className="w-4 h-4 group-hover:scale-110 transition-transform" />
                 <span>Why Us</span>
               </a>
-              <a href="#about" className="text-gray-700 hover:text-blue-600 hover:bg-blue-50 transition-all px-3 py-2 rounded-xl font-semibold flex items-center gap-1.5 group">
+              <Link href="/about" className="text-gray-700 hover:text-blue-600 hover:bg-blue-50 transition-all px-3 py-2 rounded-xl font-semibold flex items-center gap-1.5 group">
                 <UserGroupIcon className="w-4 h-4 group-hover:scale-110 transition-transform" />
                 <span>About</span>
-              </a>
+              </Link>
               <a href="#faq" className="text-gray-700 hover:text-blue-600 hover:bg-blue-50 transition-all px-3 py-2 rounded-xl font-semibold flex items-center gap-1.5 group">
                 <SparklesIcon className="w-4 h-4 group-hover:scale-110 transition-transform" />
                 <span>FAQ</span>
@@ -657,13 +658,13 @@ export default function Home() {
                 >
                   Products
                 </a>
-                <a
-                  href="#therapies"
+                <Link
+                  href="/clinical-applications"
                   onClick={() => setMobileMenuOpen(false)}
                   className="block text-gray-700 hover:text-blue-600 hover:bg-blue-50 transition-all px-4 py-3 rounded-lg font-medium"
                 >
-                  Therapies
-                </a>
+                  Clinical Applications
+                </Link>
                 <a
                   href="#why-us"
                   onClick={() => setMobileMenuOpen(false)}
@@ -671,13 +672,13 @@ export default function Home() {
                 >
                   Why Us
                 </a>
-                <a
-                  href="#about"
+                <Link
+                  href="/about"
                   onClick={() => setMobileMenuOpen(false)}
                   className="block text-gray-700 hover:text-blue-600 hover:bg-blue-50 transition-all px-4 py-3 rounded-lg font-medium"
                 >
                   About
-                </a>
+                </Link>
                 <a
                   href="#faq"
                   onClick={() => setMobileMenuOpen(false)}
@@ -1041,74 +1042,6 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Therapies & Conditions - Unified */}
-      <section id="therapies" className="relative py-28 px-4 sm:px-6 lg:px-8 bg-white overflow-hidden">
-        {/* Subtle animated background orbs */}
-        <div className="absolute inset-0 pointer-events-none">
-          <div className="absolute top-20 left-[10%] w-[180px] h-[180px] sm:w-[280px] sm:h-[280px] lg:w-[400px] lg:h-[400px] bg-blue-400/30 rounded-full filter blur-3xl animate-blob-slow"></div>
-          <div className="absolute bottom-20 right-[15%] w-[160px] h-[160px] sm:w-[250px] sm:h-[250px] lg:w-[350px] lg:h-[350px] bg-purple-400/30 rounded-full filter blur-3xl animate-blob-slow animation-delay-4000"></div>
-          <div className="absolute top-1/3 right-[20%] w-[140px] h-[140px] sm:w-[220px] sm:h-[220px] lg:w-[300px] lg:h-[300px] bg-cyan-400/25 rounded-full filter blur-3xl animate-blob-slow animation-delay-2000"></div>
-        </div>
-
-        <div className="max-w-7xl mx-auto relative z-10">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="text-center mb-20"
-          >
-            <div className="inline-flex items-center gap-2 bg-white border border-purple-200 rounded-full px-6 py-3 mb-8 shadow-lg">
-              <HeartIcon className="w-5 h-5 text-purple-600" />
-              <span className="text-sm font-bold text-purple-700">CLINICAL APPLICATIONS</span>
-            </div>
-            <h2 className="text-4xl sm:text-5xl font-black text-gray-900 mb-6 tracking-tight">Therapies & Conditions</h2>
-            <p className="text-xl text-gray-600 max-w-2xl mx-auto">Our ingredients and medications support evidence-based protocols across multiple specialties</p>
-          </motion.div>
-
-          <div className="grid md:grid-cols-2 gap-8">
-            {[
-              {
-                icon: ArrowTrendingUpIcon,
-                title: 'Weight Management & Metabolic Health',
-                description: 'GLP-1s: Semaglutide, Tirzepatide, Liraglutide, Dulaglutide & more – helping patients achieve lasting transformation'
-              },
-              {
-                icon: HeartIcon,
-                title: 'Hormone & Sexual Health',
-                description: 'Testosterone, Enclomiphene, PT-141, Tadalafil & more – restoring balance, confidence, and intimacy'
-              },
-              {
-                icon: SparklesIcon,
-                title: 'Anti-Aging & Cellular Health',
-                description: 'NAD+ (cellular energy), Tesamorelin (growth hormone), Sermorelin (GH secretagogue), CJC-1295 & more – supporting vitality, performance, and longevity'
-              },
-              {
-                icon: BoltIcon,
-                title: 'Specialized Compounding',
-                description: 'Hair Loss, Dermatology, IV Nutrition, BLT Cream & more – custom therapies for unique patient needs'
-              }
-            ].map((therapy, index) => (
-              <motion.div
-                key={therapy.title}
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: index * 0.1 }}
-                whileHover={{ y: -6, scale: 1.01 }}
-                className="group relative bg-white border border-gray-200 rounded-3xl p-10 shadow-xl hover:shadow-2xl transition-all duration-300"
-              >
-                <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-blue-500/5 to-purple-500/5 rounded-full filter blur-2xl"></div>
-                <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-blue-600 to-purple-600 flex items-center justify-center mb-6 shadow-lg group-hover:scale-105 transition-transform duration-300">
-                  <therapy.icon className="w-8 h-8 text-white" />
-                </div>
-                <h3 className="text-2xl font-bold text-gray-900 mb-4">{therapy.title}</h3>
-                <p className="text-gray-600 leading-relaxed">{therapy.description}</p>
-              </motion.div>
-            ))}
-          </div>
-        </div>
-      </section>
-
 
       {/* Why Choose Us - Unified */}
       <section id="why-us" className="py-28 px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-blue-50/40 to-purple-50/40">
@@ -1248,137 +1181,6 @@ export default function Home() {
               <ArrowRightIcon className="w-5 h-5" />
             </a>
           </div>
-        </div>
-      </section>
-
-      {/* About Us Section */}
-      <section id="about" className="relative py-28 px-4 sm:px-6 lg:px-8 bg-white overflow-hidden">
-        {/* Subtle animated background orbs */}
-        <div className="absolute inset-0 pointer-events-none">
-          <div className="absolute top-20 left-[15%] w-[180px] h-[180px] sm:w-[280px] sm:h-[280px] lg:w-[400px] lg:h-[400px] bg-blue-400/28 rounded-full filter blur-3xl animate-blob-slow"></div>
-          <div className="absolute bottom-20 right-[10%] w-[170px] h-[170px] sm:w-[260px] sm:h-[260px] lg:w-[360px] lg:h-[360px] bg-purple-400/30 rounded-full filter blur-3xl animate-blob-slow animation-delay-2000"></div>
-          <div className="absolute top-1/2 right-[25%] w-[150px] h-[150px] sm:w-[230px] sm:h-[230px] lg:w-[320px] lg:h-[320px] bg-cyan-400/26 rounded-full filter blur-3xl animate-blob-slow animation-delay-4000"></div>
-        </div>
-
-        <div className="max-w-6xl mx-auto relative z-10">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="text-center mb-16"
-          >
-            <div className="inline-flex items-center gap-2 bg-white border border-blue-200 rounded-full px-6 py-3 mb-8 shadow-lg">
-              <UserGroupIcon className="w-5 h-5 text-blue-600" />
-              <span className="text-sm font-bold text-blue-700 tracking-wide">MEET OUR TEAM</span>
-            </div>
-            <h2 className="text-4xl sm:text-5xl font-black text-gray-900 mb-6 tracking-tight">About CompoundMeds</h2>
-            <p className="text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
-              Florida-based pharmaceutical sourcing experts serving pharmacies and clinics nationwide
-            </p>
-          </motion.div>
-
-          {/* Company Info */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="bg-gradient-to-br from-blue-50/50 to-purple-50/50 rounded-3xl p-10 mb-16 border border-blue-100/50"
-          >
-            <div className="grid md:grid-cols-2 gap-8 items-center">
-              <div>
-                <h3 className="text-3xl font-bold text-gray-900 mb-4">Who We Are</h3>
-                <p className="text-lg text-gray-700 leading-relaxed mb-6">
-                  CompoundMeds is a Delray Beach, Florida-based pharmaceutical supplier committed to solving the industry's most persistent challenges: unreliable sourcing, quality concerns, and cash flow constraints.
-                </p>
-                <p className="text-lg text-gray-700 leading-relaxed">
-                  With nationwide coverage and products in stock stateside, we eliminate customs delays and provide pharmacies and clinics with the financial flexibility and product authenticity they need to serve their patients confidently.
-                </p>
-              </div>
-              <div className="grid grid-cols-2 gap-6">
-                <div className="bg-white rounded-2xl p-6 shadow-lg text-center">
-                  <div className="text-4xl font-black text-blue-600 mb-2">10+</div>
-                  <div className="text-sm font-semibold text-gray-600">Years Combined Experience</div>
-                </div>
-                <div className="bg-white rounded-2xl p-6 shadow-lg text-center">
-                  <div className="text-4xl font-black text-blue-600 mb-2">500+</div>
-                  <div className="text-sm font-semibold text-gray-600">Pharmacy Partners</div>
-                </div>
-                <div className="bg-white rounded-2xl p-6 shadow-lg text-center">
-                  <div className="text-4xl font-black text-blue-600 mb-2">50</div>
-                  <div className="text-sm font-semibold text-gray-600">States Served</div>
-                </div>
-                <div className="bg-white rounded-2xl p-6 shadow-lg text-center">
-                  <div className="text-4xl font-black text-blue-600 mb-2">100%</div>
-                  <div className="text-sm font-semibold text-gray-600">FDA Registered</div>
-                </div>
-              </div>
-            </div>
-          </motion.div>
-
-          {/* Founders */}
-          <div className="mb-12">
-            <h3 className="text-3xl font-bold text-gray-900 text-center mb-12">Leadership Team</h3>
-            <div className="grid md:grid-cols-2 gap-12 max-w-4xl mx-auto">
-              {/* Tyler Levine */}
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: 0.1 }}
-                className="text-center"
-              >
-                <div className="mb-6 relative inline-block">
-                  <div className="w-48 h-48 mx-auto rounded-2xl bg-gradient-to-br from-blue-100 to-blue-200 flex items-center justify-center shadow-xl border-4 border-white">
-                    <div className="text-6xl font-black text-blue-600">TL</div>
-                  </div>
-                  <div className="absolute -bottom-3 left-1/2 -translate-x-1/2 bg-blue-600 text-white px-4 py-1 rounded-full text-sm font-bold shadow-lg">
-                    Co-Founder
-                  </div>
-                </div>
-                <h4 className="text-2xl font-bold text-gray-900 mb-2">Tyler Levine</h4>
-                <p className="text-blue-600 font-semibold mb-4">Pharmaceutical Industry Expert</p>
-                <p className="text-gray-700 leading-relaxed">
-                  With over 10 years of pharmaceutical industry experience, Tyler brings deep expertise in pharmaceutical sourcing, regulatory compliance, and supply chain optimization. Based in South Florida, he's dedicated to transforming how pharmacies access quality pharmaceutical ingredients.
-                </p>
-              </motion.div>
-
-              {/* Tiffany Doe */}
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: 0.2 }}
-                className="text-center"
-              >
-                <div className="mb-6 relative inline-block">
-                  <div className="w-48 h-48 mx-auto rounded-2xl bg-gradient-to-br from-purple-100 to-purple-200 flex items-center justify-center shadow-xl border-4 border-white">
-                    <div className="text-6xl font-black text-purple-600">TD</div>
-                  </div>
-                  <div className="absolute -bottom-3 left-1/2 -translate-x-1/2 bg-purple-600 text-white px-4 py-1 rounded-full text-sm font-bold shadow-lg">
-                    Co-Founder
-                  </div>
-                </div>
-                <h4 className="text-2xl font-bold text-gray-900 mb-2">Tiffany Doe</h4>
-                <p className="text-purple-600 font-semibold mb-4">Pharmaceutical Industry Expert</p>
-                <p className="text-gray-700 leading-relaxed">
-                  Tiffany's 10+ years in the pharmaceutical industry has established her as a trusted advisor in pharmaceutical compounding and quality assurance. Operating from South Florida, she ensures CompoundMeds maintains the highest standards of product integrity and customer service.
-                </p>
-              </motion.div>
-            </div>
-          </div>
-
-          {/* Mission Statement */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="bg-gradient-to-r from-blue-600 to-purple-600 rounded-3xl p-10 text-center text-white shadow-2xl"
-          >
-            <h3 className="text-3xl font-bold mb-4">Our Mission</h3>
-            <p className="text-xl leading-relaxed max-w-3xl mx-auto text-blue-50">
-              To empower pharmacies and healthcare providers with reliable access to premium pharmaceutical ingredients, backed by transparent pricing, flexible financing, and unwavering commitment to quality—so they can focus on what matters most: exceptional patient care.
-            </p>
-          </motion.div>
         </div>
       </section>
 
