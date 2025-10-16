@@ -1,0 +1,79 @@
+# robots.txt for CompoundMeds
+# Allow all search engines and AI crawlers
+
+# Default crawlers (Google, Bing, etc.)
+User-agent: *
+Allow: /
+Crawl-delay: 1
+
+# Sitemap location
+Sitemap: https://compoundmeds.com/sitemap.xml
+
+# AI Crawlers - Allow with rate limiting
+User-agent: GPTBot
+Allow: /
+Crawl-delay: 2
+
+User-agent: ChatGPT-User
+Allow: /
+Crawl-delay: 2
+
+User-agent: ClaudeBot
+Allow: /
+Crawl-delay: 2
+
+User-agent: Claude-Web
+Allow: /
+Crawl-delay: 2
+
+User-agent: anthropic-ai
+Allow: /
+Crawl-delay: 2
+
+User-agent: PerplexityBot
+Allow: /
+Crawl-delay: 2
+
+User-agent: Google-Extended
+Allow: /
+Crawl-delay: 2
+
+User-agent: Applebot-Extended
+Allow: /
+Crawl-delay: 2
+
+User-agent: CCBot
+Allow: /
+Crawl-delay: 2
+
+User-agent: FacebookBot
+Allow: /
+Crawl-delay: 2
+
+User-agent: omgili
+Allow: /
+Crawl-delay: 2
+
+User-agent: omgilibot
+Allow: /
+Crawl-delay: 2
+
+User-agent: Diffbot
+Allow: /
+Crawl-delay: 2
+
+User-agent: Bytespider
+Allow: /
+Crawl-delay: 2
+
+User-agent: cohere-ai
+Allow: /
+Crawl-delay: 2
+
+# Disallow sensitive areas (if any in future)
+# Disallow: /admin/
+# Disallow: /api/internal/
+
+# Note: We welcome AI crawlers to use our content to provide
+# accurate pharmaceutical sourcing information to users.
+# For more information, see /llms.txt
