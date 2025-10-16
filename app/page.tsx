@@ -1606,37 +1606,37 @@ export default function Home() {
             </p>
           </motion.div>
 
-          <div className="bg-white rounded-3xl shadow-2xl p-6 sm:p-10 md:p-14 border border-gray-200">
-            <div className="grid md:grid-cols-2 gap-8 mb-10">
-              <div className="flex items-start gap-4 p-6 rounded-2xl bg-gradient-to-br from-blue-50 to-purple-50 border border-blue-100 hover:shadow-lg transition-all duration-300">
-                <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-blue-600 to-purple-600 flex items-center justify-center flex-shrink-0 shadow-md">
-                  <PhoneIcon className="w-6 h-6 text-white" />
+          <div className="bg-white rounded-3xl shadow-2xl p-4 sm:p-8 md:p-12 border border-gray-200">
+            <div className="grid md:grid-cols-2 gap-4 sm:gap-6 mb-8">
+              <div className="flex items-start gap-3 sm:gap-4 p-4 sm:p-6 rounded-2xl bg-gradient-to-br from-blue-50 to-purple-50 border border-blue-100 hover:shadow-lg transition-all duration-300">
+                <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-xl bg-gradient-to-br from-blue-600 to-purple-600 flex items-center justify-center flex-shrink-0 shadow-md">
+                  <PhoneIcon className="w-5 h-5 sm:w-6 sm:h-6 text-white" />
                 </div>
-                <div>
-                  <h3 className="font-bold text-gray-900 mb-2">Call us directly</h3>
-                  <a href="tel:5612238133" className="text-blue-600 hover:text-blue-700 text-xl font-bold">
+                <div className="min-w-0">
+                  <h3 className="font-bold text-gray-900 mb-1 sm:mb-2 text-sm sm:text-base">Call us directly</h3>
+                  <a href="tel:5612238133" className="text-blue-600 hover:text-blue-700 text-lg sm:text-xl font-bold break-all">
                     (561) 223-8133
                   </a>
                 </div>
               </div>
-              <div className="flex items-start gap-4 p-6 rounded-2xl bg-gradient-to-br from-blue-50 to-purple-50 border border-blue-100 hover:shadow-lg transition-all duration-300">
-                <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-blue-600 to-purple-600 flex items-center justify-center flex-shrink-0 shadow-md">
-                  <EnvelopeIcon className="w-6 h-6 text-white" />
+              <div className="flex items-start gap-3 sm:gap-4 p-4 sm:p-6 rounded-2xl bg-gradient-to-br from-blue-50 to-purple-50 border border-blue-100 hover:shadow-lg transition-all duration-300">
+                <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-xl bg-gradient-to-br from-blue-600 to-purple-600 flex items-center justify-center flex-shrink-0 shadow-md">
+                  <EnvelopeIcon className="w-5 h-5 sm:w-6 sm:h-6 text-white" />
                 </div>
-                <div>
-                  <h3 className="font-bold text-gray-900 mb-2">Email us</h3>
-                  <a href="mailto:hello@compoundmeds.com" className="text-blue-600 hover:text-blue-700 text-xl font-bold block">
+                <div className="min-w-0 flex-1">
+                  <h3 className="font-bold text-gray-900 mb-1 sm:mb-2 text-sm sm:text-base">Email us</h3>
+                  <a href="mailto:hello@compoundmeds.com" className="text-blue-600 hover:text-blue-700 text-base sm:text-xl font-bold block break-all">
                     hello@compoundmeds.com
                   </a>
-                  <p className="text-sm text-gray-600 mt-1">Response within 24 hours</p>
+                  <p className="text-xs sm:text-sm text-gray-600 mt-1">Response within 24 hours</p>
                 </div>
               </div>
             </div>
 
-            <form className="space-y-6" aria-label="Contact form">
-              <div className="grid md:grid-cols-2 gap-6">
+            <form className="space-y-4 sm:space-y-6" aria-label="Contact form">
+              <div className="grid md:grid-cols-2 gap-4 sm:gap-6">
                 <div>
-                  <label htmlFor="contact-name" className="block text-sm font-bold text-gray-700 mb-3">
+                  <label htmlFor="contact-name" className="block text-xs sm:text-sm font-bold text-gray-700 mb-2">
                     Name <span className="text-red-600" aria-label="required">*</span>
                   </label>
                   <input
@@ -1644,13 +1644,13 @@ export default function Home() {
                     id="contact-name"
                     name="name"
                     placeholder="Your full name"
-                    className="w-full px-5 py-4 border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-all bg-white"
+                    className="w-full px-3 py-3 sm:px-4 sm:py-4 border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-all bg-white text-sm sm:text-base"
                     required
                     aria-required="true"
                   />
                 </div>
                 <div>
-                  <label htmlFor="contact-email" className="block text-sm font-bold text-gray-700 mb-3">
+                  <label htmlFor="contact-email" className="block text-xs sm:text-sm font-bold text-gray-700 mb-2">
                     Email <span className="text-red-600" aria-label="required">*</span>
                   </label>
                   <input
@@ -1658,16 +1658,16 @@ export default function Home() {
                     id="contact-email"
                     name="email"
                     placeholder="your.email@clinic.com"
-                    className="w-full px-5 py-4 border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-all bg-white"
+                    className="w-full px-3 py-3 sm:px-4 sm:py-4 border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-all bg-white text-sm sm:text-base"
                     required
                     aria-required="true"
                   />
                 </div>
               </div>
 
-              <div className="grid md:grid-cols-2 gap-6">
+              <div className="grid md:grid-cols-2 gap-4 sm:gap-6">
                 <div>
-                  <label htmlFor="contact-phone" className="block text-sm font-bold text-gray-700 mb-3">
+                  <label htmlFor="contact-phone" className="block text-xs sm:text-sm font-bold text-gray-700 mb-2">
                     Phone <span className="text-red-600" aria-label="required">*</span>
                   </label>
                   <input
@@ -1675,13 +1675,13 @@ export default function Home() {
                     id="contact-phone"
                     name="phone"
                     placeholder="(555) 123-4567"
-                    className="w-full px-5 py-4 border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-all bg-white"
+                    className="w-full px-3 py-3 sm:px-4 sm:py-4 border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-all bg-white text-sm sm:text-base"
                     required
                     aria-required="true"
                   />
                 </div>
                 <div>
-                  <label htmlFor="contact-company" className="block text-sm font-bold text-gray-700 mb-3">
+                  <label htmlFor="contact-company" className="block text-xs sm:text-sm font-bold text-gray-700 mb-2">
                     Company Name
                   </label>
                   <input
@@ -1689,19 +1689,19 @@ export default function Home() {
                     id="contact-company"
                     name="company"
                     placeholder="Your clinic/pharmacy name"
-                    className="w-full px-5 py-4 border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-all bg-white"
+                    className="w-full px-3 py-3 sm:px-4 sm:py-4 border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-all bg-white text-sm sm:text-base"
                   />
                 </div>
               </div>
 
               <div>
-                <label htmlFor="contact-interest" className="block text-sm font-bold text-gray-700 mb-3">
+                <label htmlFor="contact-interest" className="block text-xs sm:text-sm font-bold text-gray-700 mb-2">
                   Primary Interest <span className="text-red-600" aria-label="required">*</span>
                 </label>
                 <select
                   id="contact-interest"
                   name="interest"
-                  className="w-full px-5 py-4 border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-all bg-white"
+                  className="w-full px-3 py-3 sm:px-4 sm:py-4 border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-all bg-white text-sm sm:text-base"
                   required
                   aria-required="true"
                 >
@@ -1714,25 +1714,25 @@ export default function Home() {
               </div>
 
               <div>
-                <label htmlFor="contact-message" className="block text-sm font-bold text-gray-700 mb-3">
+                <label htmlFor="contact-message" className="block text-xs sm:text-sm font-bold text-gray-700 mb-2">
                   Message/Comments
                 </label>
                 <textarea
                   id="contact-message"
                   name="message"
-                  rows={5}
+                  rows={4}
                   placeholder="Tell us about your specific needs or questions..."
-                  className="w-full px-5 py-4 border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-all bg-white resize-none"
+                  className="w-full px-3 py-3 sm:px-4 sm:py-4 border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-all bg-white resize-none text-sm sm:text-base"
                 ></textarea>
               </div>
 
               <button
                 type="submit"
-                className="w-full bg-gradient-to-r from-blue-600 to-purple-600 text-white py-5 rounded-xl text-lg font-bold shadow-xl hover:shadow-2xl transition-all duration-300 flex items-center justify-center gap-3 hover:scale-105"
+                className="w-full bg-gradient-to-r from-blue-600 to-purple-600 text-white py-3 sm:py-4 md:py-5 rounded-xl text-base sm:text-lg font-bold shadow-xl hover:shadow-2xl transition-all duration-300 flex items-center justify-center gap-2 sm:gap-3 hover:scale-105"
                 aria-label="Submit contact form - Request a consultation"
               >
                 <span>Request a Consultation</span>
-                <ArrowRightIcon className="w-5 h-5" />
+                <ArrowRightIcon className="w-4 h-4 sm:w-5 sm:h-5" />
               </button>
             </form>
           </div>
