@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
+import Script from "next/script";
 import "./globals.css";
 
 const inter = Inter({
@@ -105,6 +106,13 @@ export default function RootLayout({
         className={`${inter.variable} font-sans antialiased`}
       >
         {children}
+
+        {/* HubSpot Tracking Code */}
+        <Script
+          id="hs-script-loader"
+          src="//js-na2.hs-scripts.com/243569761.js"
+          strategy="afterInteractive"
+        />
       </body>
     </html>
   );

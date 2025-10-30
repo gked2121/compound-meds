@@ -35,26 +35,26 @@ import Autoplay from 'embla-carousel-autoplay';
 
 const testimonials = [
   {
-    quote: "We were paying too much for vials. Compound Meds cut our costs almost in half and the quality is even better. Hard to beat saving money and getting better quality.",
+    quote: "We cut our sterile-vial costs nearly in half while improving reliability. Every order is complete, traceable, and delivered on time.",
     initials: "KM",
-    name: "K.M.",
-    title: "Pharmacy Director, 503B Compounding Pharmacy in Texas",
+    name: "Katherine",
+    title: "Pharmacy Director, 503B Facility, Texas",
     gradient: "from-blue-600 via-blue-700 to-blue-800",
     initialsColor: "text-blue-600"
   },
   {
-    quote: "After a bad experience with another GLP-1 supplier that wasn't legit, CM connected us with an FDA Green List source, and now I feel confident in the quality and the reliability of supply.",
-    initials: "DR",
-    name: "D.R.",
-    title: "PharmD, Multi-Location Clinic in California",
+    quote: "After switching to Compound Meds, our GLP-1 sourcing became consistent and worry-free. The communication and documentation are excellent.",
+    initials: "DL",
+    name: "Dr. Lawson",
+    title: "Medical Director, Med Spa, Florida",
     gradient: "from-indigo-600 via-purple-600 to-pink-600",
     initialsColor: "text-purple-600"
   },
   {
-    quote: "Ordering/shipping is so simple and the meds come quick. Everything shows up the way it should. Our patients are happy and so are we.",
-    initials: "SL",
-    name: "S.L.",
-    title: "Medical Director, Med Spa in Florida",
+    quote: "The onboarding was same-day and simple. Having one partner for APIs, vials, and finished meds saves our team hours each week.",
+    initials: "MJ",
+    name: "Michael",
+    title: "Operations Manager, Multi-Location Clinic, Arizona",
     gradient: "from-emerald-600 via-teal-600 to-cyan-600",
     initialsColor: "text-teal-600"
   }
@@ -63,34 +63,34 @@ const testimonials = [
 // Product data
 const products = [
   {
-    image: '/images/compounded-meds.png',
-    alt: 'Compounded Medications - labeled vials including GLP-1, NAD+, and PT-141 ready for clinical use',
-    title: 'Compounded Meds',
-    subtitle: 'Ready-to-Ship Solutions',
-    description: 'Finished compounded medications—available in multiple formulations—shipped to your clinic or patients.',
-    items: ['Tirzepatide', 'Semaglutide', 'PT-141', 'Oxytocin', 'Glutathione', 'NAD+'],
-    iconColor: 'purple',
-    gradient: 'from-purple-600 via-purple-700 to-purple-800'
-  },
-  {
     image: '/images/api-powder.png',
-    alt: 'Pharmaceutical Grade APIs - high-purity white pharmaceutical powder for compounding, including FDA Green List GLP-1 compounds',
+    alt: 'Pharmaceutical Grade APIs - high-purity pharmaceutical powder for compounding',
     title: 'Pharmaceutical APIs',
-    subtitle: 'FDA-Registered Sources',
-    description: 'Direct-from-manufacturer APIs with verified COAs showing 102%+ assay and 95%+ peptide content. Third-party testing available.',
-    items: ['Semaglutide (Ozempic)', 'Tirzepatide (Mounjaro)', 'NAD+', 'Tesamorelin', 'Sermorelin', 'B12', 'Oxytocin'],
+    subtitle: 'Verified Sources',
+    description: 'Pharmaceutical-grade APIs sourced directly from verified manufacturers with complete COAs and supporting documentation. Third-party lab results available for select products.',
+    items: ['Semaglutide', 'Tirzepatide', 'NAD+', 'Tesamorelin', 'Sermorelin', 'B12', 'Oxytocin', 'Progesterone'],
     iconColor: 'blue',
     gradient: 'from-blue-600 via-blue-700 to-blue-800'
   },
   {
     image: '/images/sterile-vials.png',
-    alt: 'Sterile Vials & Components - US-processed clear and amber vials meeting FDA compliance and cGMP certification standards',
+    alt: 'Sterile Vials & Components - US-processed sterile vials',
     title: 'Sterile Vials',
-    subtitle: 'US-Processed & Certified',
-    description: 'High-quality sterile vials processed in the US to the highest pharmaceutical standards.',
-    items: ['FDA-compliant processing', 'Full documentation', 'Reliable supply', 'cGMP certified facilities', 'Complete traceability'],
+    subtitle: 'US-Processed',
+    description: 'US-processed sterile vials meeting pharmaceutical standards.',
+    items: ['Verified documentation', 'Consistent supply', 'Traceable lot numbers', 'Processed in certified facilities'],
     iconColor: 'green',
     gradient: 'from-green-600 via-green-700 to-green-800'
+  },
+  {
+    image: '/images/compounded-meds.png',
+    alt: 'Compounded Medications - ready-to-ship compounded medications',
+    title: 'Compounded Medications',
+    subtitle: 'Clinic-Ready Solutions',
+    description: 'Clinic-ready compounded medications available in multiple formulations, shipped directly to your practice or patients.',
+    items: ['Tirzepatide', 'Semaglutide', 'PT-141', 'Oxytocin', 'Glutathione', 'NAD+'],
+    iconColor: 'purple',
+    gradient: 'from-purple-600 via-purple-700 to-purple-800'
   }
 ];
 
@@ -725,12 +725,12 @@ export default function Home() {
                 className="inline-flex items-center gap-2 bg-white backdrop-blur-md border border-blue-200/50 rounded-full px-5 py-2.5 mb-10 shadow-lg"
               >
                 <CheckBadgeIcon className="w-5 h-5 text-blue-600" />
-                <span className="text-sm font-bold text-gray-700 tracking-wide">TRUSTED BY 500+ PHARMACIES</span>
+                <span className="text-sm font-bold text-gray-700 tracking-wide">TRUSTED BY 500+ PHARMACIES & CLINICS</span>
               </motion.div>
 
               {/* Main Headline - Fixed spacing and overlap */}
               <h1 className="text-5xl sm:text-6xl lg:text-7xl font-black text-gray-900 leading-[1.15] tracking-tight mb-10">
-                Premium
+                Your Trusted
                 <br />
                 <span className="relative inline-block mt-2 mb-3">
                   <span className="relative z-10 bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
@@ -739,24 +739,24 @@ export default function Home() {
                   <div className="absolute -bottom-1 left-0 right-0 h-2 bg-gradient-to-r from-blue-400/30 to-purple-400/30 blur-sm"></div>
                 </span>
                 <br />
-                Solutions
+                Sourcing Partner
               </h1>
 
               {/* Value Proposition - Better spacing */}
               <p className="text-xl text-gray-600 leading-relaxed max-w-xl mb-10">
-                FDA-registered APIs, sterile vials, and compounded medications.
+                Pharma-grade APIs, US-processed sterile vials, and high-quality compounded medications — all through one reliable partner.
               </p>
               <p className="text-lg text-blue-700 font-bold mb-12 max-w-xl">
-                Free overnight delivery • Net 30 terms • No minimums
+                Same-day account setup • No minimum orders • Flexible payment options
               </p>
 
               {/* Key Benefits Grid - Unified colors */}
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-14 max-w-xl">
                 {[
-                  { icon: BoltIcon, text: 'Free Overnight Delivery' },
-                  { icon: CircleStackIcon, text: 'In Stock Stateside' },
-                  { icon: ShieldCheckIcon, text: 'FDA Registered' },
-                  { icon: ArrowTrendingUpIcon, text: 'Net 30 Payment Terms' }
+                  { icon: BoltIcon, text: 'Same-Day Account Setup' },
+                  { icon: CircleStackIcon, text: 'Verified Documentation' },
+                  { icon: ShieldCheckIcon, text: '50 States Supported' },
+                  { icon: CheckBadgeIcon, text: '500+ Pharmacies Served' }
                 ].map((benefit, index) => (
                   <motion.div
                     key={benefit.text}
@@ -812,10 +812,10 @@ export default function Home() {
               {/* Stats Cards - Unified styling */}
               <div className="grid grid-cols-2 gap-5">
                 {[
-                  { label: 'Pharmacies Served', value: '500+', icon: UserGroupIcon },
-                  { label: 'FDA Registered', value: '100%', icon: ShieldCheckIcon },
-                  { label: 'Same-Day Ship', value: '99%', icon: BoltIcon },
-                  { label: 'States Covered', value: '50', icon: CircleStackIcon }
+                  { label: 'Pharmacies & Clinics Served', value: '500+', icon: UserGroupIcon },
+                  { label: 'Verified Documentation', value: '100%', icon: ShieldCheckIcon },
+                  { label: 'Same-Day Account Setup', value: 'Yes', icon: BoltIcon },
+                  { label: 'States Supported', value: '50', icon: CircleStackIcon }
                 ].map((stat, index) => (
                   <motion.div
                     key={stat.label}
@@ -863,10 +863,10 @@ export default function Home() {
         <div className="max-w-7xl mx-auto">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8 md:gap-12">
             {[
-              { icon: BoltIcon, label: 'Free Overnight Shipping' },
-              { icon: ArrowTrendingUpIcon, label: 'Net 30 Terms' },
-              { icon: CircleStackIcon, label: 'In Stock Stateside' },
-              { icon: ShieldCheckIcon, label: 'FDA Registered' }
+              { icon: BoltIcon, label: 'Same-Day Account Setup' },
+              { icon: ArrowTrendingUpIcon, label: 'Flexible Payment Options' },
+              { icon: CircleStackIcon, label: 'No Minimum Orders' },
+              { icon: ShieldCheckIcon, label: 'Transparent Documentation' }
             ].map((item, index) => (
               <motion.div
                 key={item.label}
@@ -1042,6 +1042,78 @@ export default function Home() {
         </div>
       </section>
 
+      {/* Therapies & Conditions Section */}
+      <section id="therapies" className="py-28 px-4 sm:px-6 lg:px-8 bg-white">
+        <div className="max-w-7xl mx-auto">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="text-center mb-20"
+          >
+            <div className="inline-flex items-center gap-2 bg-white border border-blue-200 rounded-full px-6 py-3 mb-8 shadow-lg">
+              <HeartIcon className="w-5 h-5 text-blue-600" />
+              <span className="text-sm font-bold text-blue-700">TREATMENT AREAS</span>
+            </div>
+            <h2 className="text-4xl sm:text-5xl font-black text-gray-900 mb-6 tracking-tight">Therapies & Conditions</h2>
+            <p className="text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
+              Our APIs and compounded medications support treatments across:
+            </p>
+          </motion.div>
+
+          <div className="grid md:grid-cols-2 gap-8 max-w-5xl mx-auto">
+            {[
+              {
+                icon: ArrowTrendingUpIcon,
+                title: 'Weight Management & Metabolic Health',
+                description: 'GLP-1s like Semaglutide and Tirzepatide'
+              },
+              {
+                icon: HeartIcon,
+                title: 'Hormone & Sexual Health',
+                description: 'Testosterone, Enclomiphene, PT-141, Tadalafil'
+              },
+              {
+                icon: SparklesIcon,
+                title: 'Anti-Aging & Recovery',
+                description: 'NAD+, Tesamorelin, Sermorelin, CJC-1295'
+              },
+              {
+                icon: BeakerIcon,
+                title: 'Specialized Compounding',
+                description: 'Hair loss, dermatology, IV nutrition, BLT cream'
+              }
+            ].map((therapy, index) => (
+              <motion.div
+                key={therapy.title}
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: index * 0.1 }}
+                whileHover={{ y: -6, scale: 1.01 }}
+                className="relative bg-gradient-to-br from-blue-50/40 to-purple-50/40 rounded-2xl p-8 shadow-lg hover:shadow-xl transition-all duration-300 border border-gray-200"
+              >
+                <div className="w-14 h-14 rounded-xl bg-white border border-blue-100 flex items-center justify-center mb-6 shadow-md">
+                  <therapy.icon className="w-7 h-7 text-blue-600" />
+                </div>
+                <h3 className="text-xl font-bold text-gray-900 mb-3">{therapy.title}</h3>
+                <p className="text-gray-600 leading-relaxed">{therapy.description}</p>
+              </motion.div>
+            ))}
+          </div>
+
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="text-center mt-12"
+          >
+            <p className="text-gray-600 italic">
+              Not limited to these categories — contact us for your specific protocols.
+            </p>
+          </motion.div>
+        </div>
+      </section>
 
       {/* Why Choose Us - Unified */}
       <section id="why-us" className="py-28 px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-blue-50/40 to-purple-50/40">
@@ -1065,34 +1137,34 @@ export default function Home() {
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
             {[
               {
-                icon: BoltIcon,
-                title: 'Free Overnight Shipping',
-                description: 'Order today, receive tomorrow. All products in stock stateside—no customs delays tying up your capital for months.'
-              },
-              {
-                icon: ArrowTrendingUpIcon,
-                title: 'Net 30 Terms, No Minimums',
-                description: 'Order as little as 1 gram with flexible payment terms. High credit limits to protect your cash flow and inventory needs.'
-              },
-              {
                 icon: ShieldCheckIcon,
-                title: 'Verified COAs & Anti-Fraud Education',
-                description: '102%+ assay, 95%+ peptide content with third-party testing available. We teach you how to detect fraudulent COAs flooding the market.'
-              },
-              {
-                icon: TrophyIcon,
-                title: 'FDA-Registered Manufacturers',
-                description: 'Direct from FDA-registered (some FDA-approved) sources. No repackaging, no counterfeit APIs—just authentic pharmaceutical-grade ingredients.'
-              },
-              {
-                icon: CircleStackIcon,
-                title: 'Products in Stock Stateside',
-                description: 'APIs available in 36 states (expanding to 50), vials in all 50. Immediate fulfillment, not 2-3 months in customs limbo.'
+                title: 'Verified Documentation',
+                description: 'All products sourced from verified facilities with full traceability.'
               },
               {
                 icon: CheckCircleIcon,
-                title: 'Competitive Pricing, Massive Margins',
-                description: 'USA-manufactured vials at import prices. Premium quality without premium costs—protecting your margins and your patients.'
+                title: 'Transparent Chain of Custody',
+                description: 'Original manufacturer COAs, no repackaging or relabeling.'
+              },
+              {
+                icon: CircleStackIcon,
+                title: 'Reliable Supply',
+                description: 'Consistent availability and proactive restocking.'
+              },
+              {
+                icon: BoltIcon,
+                title: 'Fast Responses',
+                description: 'Dedicated support, 24/7 availability.'
+              },
+              {
+                icon: ArrowTrendingUpIcon,
+                title: 'Flexible Options',
+                description: 'No minimums and multiple payment choices.'
+              },
+              {
+                icon: TrophyIcon,
+                title: 'Proactive Order Management',
+                description: 'We anticipate needs and eliminate supply uncertainty.'
               }
             ].map((feature, index) => (
               <motion.div
@@ -1138,7 +1210,7 @@ export default function Home() {
             </div>
             <h2 className="text-4xl sm:text-5xl font-black text-gray-900 mb-6 tracking-tight">Our Commitment</h2>
             <p className="text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
-              We keep sourcing simple — improving margins while delivering the quality your patients expect
+              We simplify sourcing — improving margins and ensuring your patients receive quality products.
             </p>
           </motion.div>
 
@@ -1146,15 +1218,15 @@ export default function Home() {
             {[
               {
                 title: 'Complete Healthcare Supply Solution',
-                description: 'APIs and sterile vials for compounding operations, plus finished medications that give healthcare providers better options for their patients - all through one relationship.'
+                description: 'APIs, sterile vials, and compounded meds through one relationship.'
               },
               {
-                title: 'Proactive Order Management',
-                description: 'We stay ahead of your needs, avoid delays, and eliminate uncertainty so you can focus on patient care instead of supply chain coordination.'
+                title: 'Transparent Communication',
+                description: 'No hidden fees, quick responses, and clear documentation.'
               },
               {
-                title: 'Direct Communication & Transparent Pricing',
-                description: 'Quick responses, no phone tag, zero hidden fees or surprise markups. You always know where you stand.'
+                title: 'Reliable Logistics',
+                description: 'Proactive order management to prevent delays.'
               }
             ].map((commitment, index) => (
               <motion.div
