@@ -200,7 +200,7 @@ function TestimonialsCarousel() {
   const scrollNext = useCallback(() => emblaApi && emblaApi.scrollNext(), [emblaApi]);
 
   return (
-    <section className="py-28 px-4 sm:px-6 lg:px-8 relative overflow-hidden bg-gradient-to-br from-slate-900 via-blue-900 to-slate-800">
+    <section className="py-16 px-4 sm:px-6 lg:px-8 relative overflow-hidden bg-gradient-to-br from-slate-900 via-blue-900 to-slate-800">
       {/* Enhanced Background Effects */}
       <div className="absolute inset-0">
         <div className="absolute top-0 left-1/4 w-[250px] h-[250px] sm:w-[400px] sm:h-[400px] lg:w-[600px] lg:h-[600px] bg-blue-500/20 rounded-full filter blur-3xl animate-blob"></div>
@@ -888,13 +888,13 @@ export default function Home() {
       </section>
 
       {/* What We Supply - Product Carousel */}
-      <section id="products" className="py-28 px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-blue-50/40 to-purple-50/40">
+      <section id="products" className="py-16 px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-blue-50/40 to-purple-50/40">
         <div className="max-w-7xl mx-auto">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="text-center mb-20"
+            className="text-center mb-12"
           >
             <div className="inline-flex items-center gap-2 bg-white border border-blue-200 rounded-full px-6 py-3 mb-8 shadow-lg">
               <CubeIcon className="w-5 h-5 text-blue-600" />
@@ -926,7 +926,7 @@ export default function Home() {
       <TestimonialsCarousel />
 
       {/* The Peptide Revolution Callout */}
-      <section className="relative py-32 px-4 sm:px-6 lg:px-8 overflow-hidden">
+      <section className="relative py-16 px-4 sm:px-6 lg:px-8 overflow-hidden">
         {/* Animated gradient background */}
         <div className="absolute inset-0 bg-gradient-to-br from-blue-600 via-indigo-700 to-purple-800"></div>
 
@@ -1043,13 +1043,13 @@ export default function Home() {
       </section>
 
       {/* Therapies & Conditions Section */}
-      <section id="therapies" className="py-28 px-4 sm:px-6 lg:px-8 bg-white">
+      <section id="therapies" className="py-16 px-4 sm:px-6 lg:px-8 bg-white">
         <div className="max-w-7xl mx-auto">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="text-center mb-20"
+            className="text-center mb-12"
           >
             <div className="inline-flex items-center gap-2 bg-white border border-blue-200 rounded-full px-6 py-3 mb-8 shadow-lg">
               <HeartIcon className="w-5 h-5 text-blue-600" />
@@ -1116,13 +1116,13 @@ export default function Home() {
       </section>
 
       {/* Why Choose Us - Unified */}
-      <section id="why-us" className="py-28 px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-blue-50/40 to-purple-50/40">
+      <section id="why-us" className="py-16 px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-blue-50/40 to-purple-50/40">
         <div className="max-w-7xl mx-auto">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="text-center mb-20"
+            className="text-center mb-12"
           >
             <div className="inline-flex items-center gap-2 bg-white border border-blue-200 rounded-full px-6 py-3 mb-8 shadow-lg">
               <TrophyIcon className="w-5 h-5 text-blue-600" />
@@ -1189,7 +1189,7 @@ export default function Home() {
 
 
       {/* Our Commitment */}
-      <section className="relative py-28 px-4 sm:px-6 lg:px-8 bg-white overflow-hidden">
+      <section className="relative py-16 px-4 sm:px-6 lg:px-8 bg-white overflow-hidden">
         {/* Subtle animated background orbs */}
         <div className="absolute inset-0 pointer-events-none">
           <div className="absolute top-20 right-[12%] w-[170px] h-[170px] sm:w-[270px] sm:h-[270px] lg:w-[380px] lg:h-[380px] bg-purple-400/30 rounded-full filter blur-3xl animate-blob-slow"></div>
@@ -1202,7 +1202,7 @@ export default function Home() {
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="text-center mb-20"
+            className="text-center mb-12"
           >
             <div className="inline-flex items-center gap-2 bg-white border border-blue-200 rounded-full px-6 py-3 mb-8 shadow-lg">
               <CheckCircleIcon className="w-5 h-5 text-blue-600" />
@@ -1257,7 +1257,7 @@ export default function Home() {
       </section>
 
       {/* FAQ Section - Unified */}
-      <section id="faq" className="py-28 px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-blue-50/40 to-purple-50/40">
+      <section id="faq" className="py-16 px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-blue-50/40 to-purple-50/40">
         <div className="max-w-5xl mx-auto">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -1462,7 +1462,7 @@ export default function Home() {
       </section>
 
       {/* Contact Form - Unified */}
-      <section id="contact" className="py-28 px-4 sm:px-6 lg:px-8 bg-white">
+      <section id="contact" className="py-16 px-4 sm:px-6 lg:px-8 bg-white">
         <div className="max-w-5xl mx-auto">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
