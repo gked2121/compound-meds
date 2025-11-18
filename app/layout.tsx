@@ -1,12 +1,20 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import { Plus_Jakarta_Sans, Space_Grotesk } from "next/font/google";
 import Script from "next/script";
 import "./globals.css";
 
-const inter = Inter({
-  variable: "--font-inter",
+const display = Space_Grotesk({
   subsets: ["latin"],
-  display: 'swap',
+  weight: ["400", "500", "600", "700"],
+  variable: "--font-display",
+  display: "swap",
+});
+
+const sans = Plus_Jakarta_Sans({
+  subsets: ["latin"],
+  weight: ["400", "500", "600", "700", "800"],
+  variable: "--font-sans-base",
+  display: "swap",
 });
 
 export const metadata: Metadata = {
@@ -103,7 +111,7 @@ export default function RootLayout({
   return (
     <html lang="en" className="scroll-smooth">
       <body
-        className={`${inter.variable} font-sans antialiased`}
+        className={`${display.variable} ${sans.variable} font-sans antialiased`}
       >
         {children}
 

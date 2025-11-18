@@ -1,1519 +1,757 @@
 'use client';
 
-import { motion } from 'framer-motion';
-import {
-  CheckCircleIcon,
-  ShieldCheckIcon,
-  TrophyIcon,
-  CubeIcon,
-  ArrowTrendingUpIcon,
-  HeartIcon,
-  SparklesIcon,
-  BoltIcon,
-  PhoneIcon,
-  EnvelopeIcon,
-  ArrowRightIcon,
-  StarIcon,
-  ClockIcon,
-  UserGroupIcon,
-  CheckBadgeIcon,
-  CircleStackIcon,
-  Bars3Icon,
-  XMarkIcon,
-  ChevronLeftIcon,
-  ChevronRightIcon,
-  ChevronDownIcon,
-  BeakerIcon,
-  ShoppingBagIcon
-} from '@heroicons/react/24/outline';
-import { CheckCircleIcon as CheckCircleSolid, StarIcon as StarSolid } from '@heroicons/react/24/solid';
 import Image from 'next/image';
 import Link from 'next/link';
-import { useState, useEffect, useCallback } from 'react';
-import useEmblaCarousel from 'embla-carousel-react';
-import Autoplay from 'embla-carousel-autoplay';
+import {
+  ArrowRightIcon,
+  Bars3Icon,
+  BeakerIcon,
+  CubeTransparentIcon,
+  DocumentCheckIcon,
+  EnvelopeIcon,
+  GlobeAltIcon,
+  PhoneIcon,
+  PlusIcon,
+  ShieldCheckIcon,
+  ShoppingBagIcon,
+  SparklesIcon,
+  XMarkIcon,
+} from '@heroicons/react/24/outline';
+import { StarIcon } from '@heroicons/react/24/solid';
+import { useEffect, useState, type ElementType } from 'react';
 
-const testimonials = [
+type IconComponent = ElementType;
+
+type Product = {
+  title: string;
+  description: string;
+  features: string[];
+  icon: IconComponent;
+  gradient: string;
+  chip: string;
+  iconColor: string;
+};
+
+type Differentiator = {
+  title: string;
+  description: string;
+  icon: IconComponent;
+};
+
+type Testimonial = {
+  quote: string;
+  name: string;
+  title: string;
+  initials: string;
+  badge: string;
+};
+
+type FAQ = {
+  question: string;
+  answer: string;
+};
+
+type ContactCard = {
+  title: string;
+  value: string;
+  href: string;
+  icon: IconComponent;
+  note?: string;
+};
+
+const navItems = [
+  { label: 'Products', href: '#products' },
+  { label: 'Why Us', href: '#why-us' },
+  { label: 'Testimonials', href: '#testimonials' },
+  { label: 'FAQ', href: '#faq' },
+];
+
+const stats = [
+  { value: '500+', label: 'Partners Served' },
+  { value: '100%', label: 'Verified Docs' },
+  { value: '50', label: 'States Covered' },
+  { value: '24hr', label: 'Response Time' },
+];
+
+const featurePills = ['✓ Same-Day Setup', '✓ No Minimums', '✓ Verified Documentation'];
+
+const products: Product[] = [
   {
-    quote: "We cut our sterile-vial costs nearly in half while improving reliability. Every order is complete, traceable, and delivered on time.",
-    initials: "KM",
-    name: "Katherine",
-    title: "Pharmacy Director, 503B Facility, Texas",
-    gradient: "from-blue-600 via-blue-700 to-blue-800",
-    initialsColor: "text-blue-600"
+    title: 'Compounded Medications',
+    description: 'Clinic-ready formulations from licensed 503A and 503B pharmacies.',
+    features: ['Injectables', 'Creams & Ointments', 'Troches & Capsules'],
+    icon: ShoppingBagIcon,
+    gradient: 'from-medical-100 to-pharma-100',
+    chip: 'from-pharma-100 to-pharma-200',
+    iconColor: 'text-pharma-600',
+  },
+  {
+    title: 'Sterile Vials & Components',
+    description: 'US-processed sterile components from cGMP-compliant facilities.',
+    features: ['RTU Formats', 'Custom Trays', 'Verified Documentation'],
+    icon: CubeTransparentIcon,
+    gradient: 'from-clean-100 to-medical-100',
+    chip: 'from-clean-100 to-clean-200',
+    iconColor: 'text-clean-600',
+  },
+  {
+    title: 'Pharmaceutical APIs',
+    description: 'High-purity ingredients sourced directly from FDA-registered manufacturers.',
+    features: ['FDA Green-List Compliant', 'Third-Party Tested', 'Full Traceability'],
+    icon: BeakerIcon,
+    gradient: 'from-medical-100 to-clean-100',
+    chip: 'from-medical-100 to-medical-200',
+    iconColor: 'text-medical-600',
+  },
+];
+
+const differentiators: Differentiator[] = [
+  {
+    title: 'Verified Supplier Network',
+    description: 'Every partner is FDA-registered with full documentation, COAs, and batch traceability.',
+    icon: ShieldCheckIcon,
+  },
+  {
+    title: 'Frictionless Onboarding',
+    description: 'Same-day setup with dedicated account support and transparent communication throughout the supply chain.',
+    icon: SparklesIcon,
+  },
+  {
+    title: 'Nationwide Fulfillment',
+    description: 'Licensed pharmacies and manufacturers ship from US facilities with temperature-controlled logistics.',
+    icon: GlobeAltIcon,
+  },
+  {
+    title: 'Documentation Without Gaps',
+    description: 'COAs, lot numbers, and chain-of-custody records included with every shipment to simplify audits.',
+    icon: DocumentCheckIcon,
+  },
+];
+
+const testimonials: Testimonial[] = [
+  {
+    quote: 'We cut our sterile-vial costs nearly in half while improving reliability. Every order is complete, traceable, and delivered on time.',
+    name: 'Katherine',
+    title: 'Pharmacy Director, 503B Facility, Texas',
+    initials: 'KM',
+    badge: 'from-medical-500 to-medical-600',
   },
   {
     quote: "After switching to Compound Meds, our GLP-1 sourcing became consistent and worry-free. The communication and documentation are excellent.",
-    initials: "DL",
-    name: "Dr. Lawson",
-    title: "Medical Director, Med Spa, Florida",
-    gradient: "from-indigo-600 via-purple-600 to-pink-600",
-    initialsColor: "text-purple-600"
+    name: 'Dr. Lawson',
+    title: 'Medical Director, Med Spa, Florida',
+    initials: 'DL',
+    badge: 'from-pharma-500 to-pharma-600',
   },
   {
-    quote: "The onboarding was same-day and simple. Having one partner for APIs, vials, and finished meds saves our team hours each week.",
-    initials: "MJ",
-    name: "Michael",
-    title: "Operations Manager, Multi-Location Clinic, Arizona",
-    gradient: "from-emerald-600 via-teal-600 to-cyan-600",
-    initialsColor: "text-teal-600"
-  }
+    quote: 'The onboarding was same-day and simple. Having one partner for APIs, vials, and finished meds saves our team hours each week.',
+    name: 'Michael',
+    title: 'Operations Manager, Multi-Location Clinic, Arizona',
+    initials: 'MJ',
+    badge: 'from-clean-500 to-clean-600',
+  },
 ];
 
-// Product data
-const products = [
+const faqs: FAQ[] = [
   {
-    icon: BeakerIcon,
-    title: 'Pharmaceutical APIs',
-    description: 'Pharmaceutical-grade active ingredients sourced from verified manufacturers with complete COAs and third-party testing.',
-    items: ['Semaglutide', 'Tirzepatide', 'NAD+', 'Tesamorelin', 'Sermorelin', 'B12 (Methylcobalamin)', 'Oxytocin', 'Progesterone', '+ More Available'],
-    iconColor: 'blue',
-    ctaText: 'Request Pricing',
-    ctaLink: '#contact'
+    question: 'What products can I source through Compound Meds?',
+    answer:
+      'We connect clinics and pharmacies with FDA-registered APIs, US-processed sterile vials, and compounded medications across categories like GLP-1s, hormone therapies, recovery blends, and wellness formulations.',
   },
   {
-    icon: ShieldCheckIcon,
-    title: 'Sterile Vials & Components',
-    description: 'U.S.-processed sterile vials and components meeting pharmaceutical standards for compounding operations.',
-    items: ['Verified documentation', 'Consistent supply', 'Traceable lot numbers', 'Processed in certified facilities'],
-    iconColor: 'green',
-    ctaText: 'Get Catalog',
-    ctaLink: '#contact'
+    question: 'How fast is onboarding?',
+    answer:
+      'Most partners are activated the same business day. You receive a dedicated rep, documentation checklist, and shipment timeline so you can begin ordering immediately.',
   },
   {
-    icon: ShoppingBagIcon,
-    title: 'Compounded Medications',
-    description: 'Clinic-ready compounded medications available in multiple formulations—injectables, creams, tablets, and lyophilized powders—sourced through licensed 503A and 503B pharmacies.',
-    therapies: ['Weight Management (GLP-1s)', 'Hormone & Sexual Health', 'Anti-Aging & Recovery', 'Specialized Compounding'],
-    formulations: 'Available formulations: Injectables, topical creams, oral tablets, lyophilized powders',
-    iconColor: 'purple',
-    ctaText: 'Get Started',
-    ctaLink: '#contact'
-  }
+    question: 'Do you compound medications yourselves?',
+    answer:
+      'No. Compound Meds is a sourcing partner. We coordinate with independent, licensed 503A and 503B pharmacies as well as FDA-registered manufacturers to fulfill every order.',
+  },
+  {
+    question: 'What compliance measures are in place?',
+    answer:
+      'Every shipment includes complete COAs, batch records, and lot traceability. Partners meet FDA, DEA, and state pharmacy requirements, and we maintain audit-ready documentation.',
+  },
 ];
 
-function ProductsGrid() {
-  return (
-    <div className="grid md:grid-cols-3 gap-8 max-w-7xl mx-auto">
-      {products.map((product, index) => {
-        const IconComponent = product.icon;
-        const isCompoundedMeds = product.therapies !== undefined;
+const contactCards: ContactCard[] = [
+  {
+    title: 'Call us directly',
+    value: '(561) 223-8133',
+    href: 'tel:5612238133',
+    icon: PhoneIcon,
+  },
+  {
+    title: 'Email us',
+    value: 'hello@compoundmeds.com',
+    href: 'mailto:hello@compoundmeds.com',
+    icon: EnvelopeIcon,
+    note: 'Response within 24 hours',
+  },
+];
 
-        return (
-          <motion.div
-            key={index}
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ delay: index * 0.15 }}
-            whileHover={{ y: -8, scale: 1.02 }}
-            className="bg-white rounded-3xl p-8 shadow-xl hover:shadow-2xl transition-all duration-300 border border-gray-200 flex flex-col"
-          >
-            {/* Icon */}
-            <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-blue-50 to-purple-50 border border-blue-100 flex items-center justify-center mb-6 shadow-md">
-              <IconComponent className={`w-8 h-8 text-${product.iconColor}-600`} />
-            </div>
-
-            {/* Title */}
-            <h3 className="text-2xl font-bold text-gray-900 mb-4">{product.title}</h3>
-
-            {/* Description */}
-            <p className="text-gray-600 mb-6 leading-relaxed flex-grow">
-              {product.description}
-            </p>
-
-            {/* Items or Therapies */}
-            {isCompoundedMeds ? (
-              <div className="mb-6">
-                <div className="flex flex-wrap gap-2 mb-4">
-                  {product.therapies.map((therapy, i) => (
-                    <span
-                      key={i}
-                      className="inline-block bg-purple-100 text-purple-700 text-sm font-semibold px-3 py-1.5 rounded-full"
-                    >
-                      {therapy}
-                    </span>
-                  ))}
-                </div>
-                <p className="text-sm text-gray-600 italic border-t border-gray-200 pt-4">
-                  <strong>Available formulations:</strong> {product.formulations.replace('Available formulations: ', '')}
-                </p>
-              </div>
-            ) : (
-              <ul className="space-y-3 mb-6">
-                {product.items.map((item, i) => (
-                  <li key={i} className="flex items-start text-gray-700 text-sm">
-                    <CheckCircleIcon className={`w-5 h-5 text-${product.iconColor}-600 mr-2 flex-shrink-0 mt-0.5`} />
-                    <span>{item}</span>
-                  </li>
-                ))}
-              </ul>
-            )}
-
-            {/* CTA */}
-            <a
-              href={product.ctaLink}
-              className={`inline-flex items-center justify-center gap-2 bg-gradient-to-r from-${product.iconColor}-600 to-${product.iconColor}-700 text-white px-6 py-3 rounded-xl font-bold hover:shadow-lg transition-all duration-300 hover:scale-105 mt-auto`}
-            >
-              {product.ctaText}
-              <ArrowRightIcon className="w-4 h-4" />
-            </a>
-          </motion.div>
-        );
-      })}
-    </div>
-  );
-}
-
-function TestimonialsGrid() {
-  return (
-    <section className="py-16 px-4 sm:px-6 lg:px-8 relative overflow-hidden bg-gradient-to-br from-slate-900 via-blue-900 to-slate-800">
-      {/* Enhanced Background Effects */}
-      <div className="absolute inset-0">
-        <div className="absolute top-0 left-1/4 w-[250px] h-[250px] sm:w-[400px] sm:h-[400px] lg:w-[600px] lg:h-[600px] bg-blue-500/20 rounded-full filter blur-3xl animate-blob"></div>
-        <div className="absolute bottom-0 right-1/4 w-[250px] h-[250px] sm:w-[400px] sm:h-[400px] lg:w-[600px] lg:h-[600px] bg-purple-500/20 rounded-full filter blur-3xl animate-blob animation-delay-2000"></div>
-        <div className="absolute top-1/2 left-1/2 w-[220px] h-[220px] sm:w-[350px] sm:h-[350px] lg:w-[500px] lg:h-[500px] bg-cyan-500/10 rounded-full filter blur-3xl animate-blob animation-delay-4000"></div>
-      </div>
-
-      {/* Subtle grid pattern overlay */}
-      <div className="absolute inset-0 opacity-[0.03]" style={{
-        backgroundImage: `linear-gradient(rgba(255,255,255,0.1) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.1) 1px, transparent 1px)`,
-        backgroundSize: '50px 50px'
-      }}></div>
-
-      <div className="max-w-7xl mx-auto relative z-10">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          className="text-center mb-16"
-        >
-          <div className="inline-flex items-center gap-2 bg-white/15 backdrop-blur-md border border-white/20 rounded-full px-6 py-3 mb-8 shadow-2xl">
-            <div className="flex gap-0.5">
-              {[...Array(5)].map((_, i) => (
-                <StarSolid key={i} className="w-4 h-4 text-yellow-400" />
-              ))}
-            </div>
-            <span className="text-sm font-bold text-white tracking-wider">5.0 RATING</span>
-          </div>
-          <h2 className="text-5xl sm:text-6xl font-black text-white mb-6 tracking-tight drop-shadow-lg">
-            Trusted by Healthcare Professionals
-          </h2>
-          <p className="text-xl text-blue-100 max-w-3xl mx-auto leading-relaxed">
-            Join hundreds of pharmacies and clinics who've transformed their sourcing with Compound Meds
-          </p>
-        </motion.div>
-
-        {/* Static 3-Column Grid */}
-        <div className="grid md:grid-cols-3 gap-8 max-w-7xl mx-auto">
-          {testimonials.map((testimonial, index) => (
-            <motion.div
-              key={index}
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: index * 0.15 }}
-              whileHover={{ y: -6, scale: 1.02 }}
-              className="relative bg-white/95 backdrop-blur-xl rounded-3xl p-8 shadow-xl hover:shadow-2xl transition-all duration-300 border border-white/30 flex flex-col"
-            >
-              {/* Decorative quote mark */}
-              <div className="mb-6">
-                <div className="w-12 h-12 bg-gradient-to-br from-blue-600 to-purple-600 rounded-xl flex items-center justify-center shadow-lg">
-                  <span className="text-2xl text-white font-serif">"</span>
-                </div>
-              </div>
-
-              {/* Star rating */}
-              <div className="flex gap-1 mb-6">
-                {[...Array(5)].map((_, i) => (
-                  <StarSolid key={i} className="w-5 h-5 text-yellow-400" />
-                ))}
-              </div>
-
-              {/* Testimonial quote */}
-              <p className="text-base text-gray-800 mb-8 leading-relaxed flex-grow">
-                "{testimonial.quote}"
-              </p>
-
-              {/* Author info */}
-              <div className="flex items-center gap-4 pt-6 border-t border-gray-200">
-                <div className="w-14 h-14 bg-gradient-to-br from-blue-100 to-purple-100 rounded-xl flex items-center justify-center font-bold text-lg shadow-md flex-shrink-0"
-                  style={{ color: testimonial.initialsColor.includes('blue') ? '#2563eb' : testimonial.initialsColor.includes('purple') ? '#9333ea' : '#10b981' }}>
-                  {testimonial.initials}
-                </div>
-                <div className="min-w-0">
-                  <p className="text-gray-900 font-bold text-base mb-0.5">{testimonial.name}</p>
-                  <p className="text-gray-600 text-sm">{testimonial.title}</p>
-                </div>
-              </div>
-
-              {/* Decorative gradient accent */}
-              <div className="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-blue-600 via-purple-600 to-blue-600 rounded-b-3xl"></div>
-            </motion.div>
-          ))}
-        </div>
-      </div>
-    </section>
-  );
-}
-
-export default function Home() {
-  const [openFAQ, setOpenFAQ] = useState<number | null>(null);
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const [activeSection, setActiveSection] = useState('hero');
-
-  const sections = [
-    { id: 'hero', label: 'Home' },
-    { id: 'products', label: 'Products' },
-    { id: 'therapies', label: 'Therapies' },
-    { id: 'why-us', label: 'Why Us' },
-    { id: 'about', label: 'About' },
-    { id: 'faq', label: 'FAQ' },
-    { id: 'contact', label: 'Contact' }
-  ];
+export default function HomePage() {
+  const [mobileOpen, setMobileOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
-      const scrollPosition = window.scrollY + 200;
-
-      for (const section of sections) {
-        const element = document.getElementById(section.id === 'hero' ? 'main-content' : section.id);
-        if (element) {
-          const offsetTop = element.offsetTop;
-          const offsetBottom = offsetTop + element.offsetHeight;
-
-          if (scrollPosition >= offsetTop && scrollPosition < offsetBottom) {
-            setActiveSection(section.id);
-            break;
-          }
-        }
-      }
+      setScrolled(window.scrollY > 50);
     };
 
     window.addEventListener('scroll', handleScroll);
-    handleScroll();
-
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+  useEffect(() => {
+    const elements = document.querySelectorAll<HTMLElement>('[data-animate="true"]');
+
+    if (!('IntersectionObserver' in window)) {
+      elements.forEach((el) => el.classList.add('is-visible'));
+      return;
+    }
+
+    const observer = new IntersectionObserver(
+      (entries, obs) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('is-visible');
+            obs.unobserve(entry.target);
+          }
+        });
+      },
+      { threshold: 0.15 }
+    );
+
+    elements.forEach((el) => observer.observe(el));
+
+    return () => observer.disconnect();
+  }, []);
+
+  const currentYear = new Date().getFullYear();
+
+  const handleNavClick = () => setMobileOpen(false);
+
   return (
-    <div className="min-h-screen bg-gradient-to-br from-white via-slate-50 to-blue-50/40 relative overflow-hidden">
-      {/* Structured Data for SEO */}
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{
-          __html: JSON.stringify({
-            "@context": "https://schema.org",
-            "@graph": [
-              {
-                "@type": "MedicalOrganization",
-                "@id": "https://compoundmeds.com/#organization",
-                "name": "Compound Meds",
-                "alternateName": "Compound Meds",
-                "url": "https://compoundmeds.com",
-                "logo": {
-                  "@type": "ImageObject",
-                  "url": "https://compoundmeds.com/logo.png"
-                },
-                "description": "Premium pharmaceutical sourcing partner for pharmacies and clinics. FDA-registered APIs, sterile vials, and compounded medications with reliable supply and transparent pricing.",
-                "telephone": "+1-561-223-8133",
-                "email": "hello@compoundmeds.com",
-                "address": {
-                  "@type": "PostalAddress",
-                  "addressCountry": "US",
-                  "addressRegion": "FL"
-                },
-                "sameAs": [
-                  "https://compoundmeds.com"
-                ],
-                "areaServed": {
-                  "@type": "Country",
-                  "name": "United States"
-                },
-                "medicalSpecialty": [
-                  "Pharmacy",
-                  "Compounding Pharmacy",
-                  "Clinical Pharmacy"
-                ]
-              },
-              {
-                "@type": "WebSite",
-                "@id": "https://compoundmeds.com/#website",
-                "url": "https://compoundmeds.com",
-                "name": "Compound Meds",
-                "description": "Premium pharmaceutical sourcing for pharmacies and clinics",
-                "publisher": {
-                  "@id": "https://compoundmeds.com/#organization"
-                },
-                "inLanguage": "en-US"
-              },
-              {
-                "@type": "WebPage",
-                "@id": "https://compoundmeds.com/#webpage",
-                "url": "https://compoundmeds.com",
-                "name": "Compound Meds | Premium Pharmaceutical Sourcing for Pharmacies & Clinics",
-                "isPartOf": {
-                  "@id": "https://compoundmeds.com/#website"
-                },
-                "about": {
-                  "@id": "https://compoundmeds.com/#organization"
-                },
-                "description": "Trusted pharmaceutical sourcing partner for 500+ pharmacies and clinics. FDA-registered APIs, sterile vials, and compounded medications. Free overnight shipping, Net 30 terms, no minimums.",
-                "inLanguage": "en-US"
-              },
-              {
-                "@type": "Service",
-                "serviceType": "Pharmaceutical Supply",
-                "provider": {
-                  "@id": "https://compoundmeds.com/#organization"
-                },
-                "areaServed": {
-                  "@type": "Country",
-                  "name": "United States"
-                },
-                "hasOfferCatalog": {
-                  "@type": "OfferCatalog",
-                  "name": "Pharmaceutical Products",
-                  "itemListElement": [
-                    {
-                      "@type": "Offer",
-                      "itemOffered": {
-                        "@type": "Drug",
-                        "name": "Semaglutide (GLP-1)"
-                      }
-                    },
-                    {
-                      "@type": "Offer",
-                      "itemOffered": {
-                        "@type": "Drug",
-                        "name": "Tirzepatide (GLP-1)"
-                      }
-                    },
-                    {
-                      "@type": "Offer",
-                      "itemOffered": {
-                        "@type": "Drug",
-                        "name": "NAD+"
-                      }
-                    },
-                    {
-                      "@type": "Offer",
-                      "itemOffered": {
-                        "@type": "Product",
-                        "name": "Sterile Vials"
-                      }
-                    }
-                  ]
-                }
-              }
-            ]
-          })
-        }}
-      />
-      {/* Rich multi-layered animated background */}
-      <div className="absolute inset-0 -z-10">
-        {/* Primary gradient layer */}
-        <div className="absolute inset-0 bg-gradient-to-br from-blue-50/40 via-purple-50/30 to-cyan-50/40"></div>
+    <main className="bg-white text-gray-900">
+      <header
+        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
+          scrolled
+            ? 'bg-white/95 backdrop-blur-xl shadow-lg shadow-black/5 border-b border-gray-100'
+            : 'bg-gradient-to-b from-black/30 to-transparent'
+        }`}
+      >
+        <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-4 lg:px-12">
+          <Link
+            href="#hero"
+            className="relative inline-flex items-center gap-3 transition-all hover:opacity-90"
+            onClick={handleNavClick}
+          >
+            <Image
+              src="/compound-meds-logo.png"
+              alt="Compound Meds"
+              width={200}
+              height={72}
+              priority
+              className={`h-14 w-auto transition-all duration-500 lg:h-16 ${
+                scrolled ? '' : 'brightness-0 invert'
+              }`}
+            />
+          </Link>
 
-        {/* Animated blob gradients - larger and more prominent */}
-        <div className="absolute inset-0 opacity-40">
-          <div className="absolute top-0 left-1/4 w-[250px] h-[250px] sm:w-[400px] sm:h-[400px] lg:w-[600px] lg:h-[600px] bg-gradient-to-br from-blue-400 via-cyan-300 to-blue-500 rounded-full mix-blend-multiply filter blur-3xl animate-blob"></div>
-          <div className="absolute top-1/4 right-1/4 w-[220px] h-[220px] sm:w-[350px] sm:h-[350px] lg:w-[500px] lg:h-[500px] bg-gradient-to-br from-purple-400 via-pink-300 to-purple-500 rounded-full mix-blend-multiply filter blur-3xl animate-blob animation-delay-2000"></div>
-          <div className="absolute bottom-1/4 left-1/3 w-[240px] h-[240px] sm:w-[380px] sm:h-[380px] lg:w-[550px] lg:h-[550px] bg-gradient-to-br from-indigo-400 via-blue-300 to-cyan-400 rounded-full mix-blend-multiply filter blur-3xl animate-blob animation-delay-4000"></div>
-          <div className="absolute bottom-0 right-1/3 w-[200px] h-[200px] sm:w-[320px] sm:h-[320px] lg:w-[450px] lg:h-[450px] bg-gradient-to-br from-cyan-300 via-blue-300 to-indigo-400 rounded-full mix-blend-multiply filter blur-3xl animate-blob animation-delay-2000"></div>
+          <nav className="hidden items-center gap-1 lg:flex">
+            {navItems.map((item) => (
+              <a
+                key={item.href}
+                href={item.href}
+                className={`relative rounded-xl px-5 py-2.5 text-sm font-semibold transition-all duration-300 ${
+                  scrolled
+                    ? 'text-gray-600 hover:text-gray-900 hover:bg-gray-100'
+                    : 'text-white/90 hover:text-white hover:bg-white/10'
+                }`}
+              >
+                {item.label}
+                <span className={`absolute inset-x-2 -bottom-0.5 h-0.5 rounded-full transition-all duration-300 scale-x-0 group-hover:scale-x-100 ${
+                  scrolled ? 'bg-botanical-500' : 'bg-white'
+                }`} />
+              </a>
+            ))}
+            <a
+              href="#contact"
+              className={`ml-6 inline-flex items-center gap-2 rounded-xl px-6 py-2.5 text-sm font-bold shadow-lg transition-all duration-300 hover:scale-105 hover:shadow-xl ${
+                scrolled
+                  ? 'bg-botanical-600 text-white hover:bg-botanical-700'
+                  : 'bg-white text-gray-900 hover:bg-white/95'
+              }`}
+            >
+              Get Started
+              <ArrowRightIcon className="h-4 w-4" />
+            </a>
+          </nav>
+
+          <button
+            className={`rounded-xl p-2.5 transition-all duration-300 lg:hidden ${
+              scrolled
+                ? 'text-gray-700 hover:bg-gray-100'
+                : 'text-white hover:bg-white/10'
+            }`}
+            onClick={() => setMobileOpen((prev) => !prev)}
+            aria-label="Toggle navigation"
+          >
+            {mobileOpen ? <XMarkIcon className="h-6 w-6" /> : <Bars3Icon className="h-6 w-6" />}
+          </button>
         </div>
 
-        {/* Subtle noise texture overlay for depth */}
-        <div className="absolute inset-0 opacity-5 bg-[url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIzMDAiIGhlaWdodD0iMzAwIj48ZmlsdGVyIGlkPSJhIiB4PSIwIiB5PSIwIj48ZmVUdXJidWxlbmNlIGJhc2VGcmVxdWVuY3k9Ii43NSIgc3RpdGNoVGlsZXM9InN0aXRjaCIgdHlwZT0iZnJhY3RhbE5vaXNlIi8+PGZlQ29sb3JNYXRyaXggdHlwZT0ic2F0dXJhdGUiIHZhbHVlcz0iMCIvPjwvZmlsdGVyPjxwYXRoIGQ9Ik0wIDBoMzAwdjMwMEgweiIgZmlsdGVyPSJ1cmwoI2EpIiBvcGFjaXR5PSIuMDUiLz48L3N2Zz4=')]"></div>
-      </div>
-      {/* Compliance Banner - Above Navigation */}
-      <div className="fixed top-0 w-full bg-blue-50/95 backdrop-blur-md border-b border-blue-200/50 z-[60] py-2 px-4">
-        <div className="max-w-7xl mx-auto flex items-center justify-center gap-2 text-center">
-          <ShieldCheckIcon className="w-4 h-4 text-blue-600 flex-shrink-0" />
-          <p className="text-xs sm:text-sm text-gray-700 font-medium">
-            Compound Meds connects pharmacies and clinics with verified pharmaceutical suppliers. All products fulfilled by licensed partners.
-          </p>
+        {/* Mobile menu */}
+        <div
+          className={`lg:hidden overflow-hidden transition-all duration-500 ease-in-out ${
+            mobileOpen ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0'
+          } ${scrolled ? 'bg-white border-t border-gray-100' : 'bg-gray-900/95 backdrop-blur-xl border-t border-white/10'}`}
+        >
+          <div className="mx-auto max-w-7xl space-y-1 px-6 py-4">
+            {navItems.map((item) => (
+              <a
+                key={item.href}
+                href={item.href}
+                onClick={handleNavClick}
+                className={`block rounded-xl px-4 py-3 text-sm font-semibold transition-all duration-300 ${
+                  scrolled
+                    ? 'text-gray-600 hover:text-gray-900 hover:bg-gray-100'
+                    : 'text-white/90 hover:text-white hover:bg-white/10'
+                }`}
+              >
+                {item.label}
+              </a>
+            ))}
+            <a
+              href="#contact"
+              onClick={handleNavClick}
+              className={`mt-3 flex items-center justify-center gap-2 rounded-xl px-4 py-3.5 text-sm font-bold shadow-lg transition-all duration-300 ${
+                scrolled
+                  ? 'bg-botanical-600 text-white hover:bg-botanical-700'
+                  : 'bg-white text-gray-900 hover:bg-white/95'
+              }`}
+            >
+              Get Started
+              <ArrowRightIcon className="h-4 w-4" />
+            </a>
+          </div>
         </div>
-      </div>
+      </header>
 
-      {/* Skip to main content link for accessibility */}
-      <a
-        href="#main-content"
-        className="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-[60] focus:bg-blue-600 focus:text-white focus:px-4 focus:py-2 focus:rounded-lg focus:shadow-lg"
+      <section
+        id="hero"
+        className="relative flex min-h-[90vh] items-center justify-center bg-gradient-to-br from-medical-900 via-medical-800 to-pharma-900 pt-20 pb-24"
       >
-        Skip to main content
-      </a>
+        <div className="absolute inset-0 overflow-hidden">
+          <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(34,197,94,0.06),transparent_50%)]" />
+          <div className="absolute inset-0 bg-[radial-gradient(circle_at_80%_20%,rgba(59,130,246,0.08),transparent_50%)]" />
+          <div className="absolute inset-0 bg-[radial-gradient(circle_at_20%_80%,rgba(147,51,234,0.06),transparent_50%)]" />
+          <div className="absolute inset-0 bg-[radial-gradient(circle_at_60%_40%,rgba(20,184,166,0.05),transparent_50%)]" />
 
-      {/* Vertical Progress Navigation Bar - Sleek Redesign */}
-      <motion.div
-        initial={{ opacity: 0, x: -20 }}
-        animate={{ opacity: 1, x: 0 }}
-        transition={{ delay: 0.5, duration: 0.6 }}
-        className="fixed left-6 top-1/2 -translate-y-1/2 z-40 hidden xl:block"
-      >
-        <div className="relative">
-          {/* Background track */}
-          <div className="absolute left-0 top-0 bottom-0 w-px bg-gradient-to-b from-gray-200 via-gray-300 to-gray-200"></div>
-
-          {/* Active indicator track */}
-          <motion.div
-            className="absolute left-0 w-px bg-gradient-to-b from-blue-500 to-purple-500"
-            style={{
-              top: `${(sections.findIndex(s => s.id === activeSection) / sections.length) * 100}%`,
-              height: `${100 / sections.length}%`
-            }}
-            transition={{ duration: 0.4, ease: "easeInOut" }}
+          <div className="absolute top-20 -left-20 h-96 w-96 rounded-full bg-botanical-500 opacity-10 blur-[100px] mix-blend-screen animate-blob lg:h-[600px] lg:w-[600px]" />
+          <div
+            className="absolute top-60 -right-40 h-80 w-80 rounded-full bg-medical-400 opacity-10 blur-[120px] mix-blend-screen animate-blob lg:h-[500px] lg:w-[500px]"
+            style={{ animationDelay: '2s' }}
+          />
+          <div
+            className="absolute bottom-20 left-1/3 h-96 w-96 rounded-full bg-pharma-400 opacity-10 blur-[110px] mix-blend-screen animate-blob lg:h-[550px] lg:w-[550px]"
+            style={{ animationDelay: '4s' }}
+          />
+          <div
+            className="absolute bottom-40 right-20 h-72 w-72 rounded-full bg-clean-500 opacity-10 blur-[120px] mix-blend-screen animate-blob lg:h-[450px] lg:w-[450px]"
+            style={{ animationDelay: '6s' }}
           />
 
-          <nav aria-label="Page sections" className="relative flex flex-col">
-            {sections.map((section, index) => (
-              <motion.a
-                key={section.id}
-                href={`#${section.id === 'hero' ? 'main-content' : section.id}`}
-                className="group relative py-4"
-                whileHover={{ x: 3 }}
-                transition={{ duration: 0.2 }}
-              >
-                {/* Dot indicator */}
-                <div className="relative flex items-center">
-                  <motion.div
-                    className={`w-2 h-2 rounded-full transition-all duration-300 ${
-                      activeSection === section.id
-                        ? 'bg-blue-600 ring-4 ring-blue-600/20'
-                        : 'bg-gray-400 group-hover:bg-blue-500 group-hover:ring-2 group-hover:ring-blue-500/20'
-                    }`}
-                    animate={{
-                      scale: activeSection === section.id ? 1.3 : 1
-                    }}
-                    transition={{ duration: 0.3 }}
-                  />
+          <div className="absolute top-[20%] left-[15%] h-2 w-2 rounded-full bg-botanical-200 opacity-40 animate-float" />
+          <div className="absolute top-[40%] left-[85%] h-3 w-3 rounded-full bg-blue-200 opacity-30 animate-float-slow" />
+          <div className="absolute top-[70%] left-[25%] h-2 w-2 rounded-full bg-teal-200 opacity-35 animate-float" />
+          <div
+            className="absolute top-[15%] left-[70%] h-2 w-2 rounded-full bg-botanical-300 opacity-30 animate-float-slow"
+            style={{ animationDelay: '1s' }}
+          />
+          <div
+            className="absolute top-[85%] left-[45%] h-3 w-3 rounded-full bg-purple-200 opacity-30 animate-float"
+            style={{ animationDelay: '2s' }}
+          />
+          <div
+            className="absolute top-[35%] left-[90%] h-2 w-2 rounded-full bg-botanical-200 opacity-30 animate-float-slow"
+            style={{ animationDelay: '3s' }}
+          />
+          <div
+            className="absolute top-[60%] left-[10%] h-2 w-2 rounded-full bg-white opacity-30 animate-float"
+            style={{ animationDelay: '4s' }}
+          />
+          <div
+            className="absolute top-[25%] left-[50%] h-2 w-2 rounded-full bg-botanical-300 opacity-30 animate-float-slow"
+            style={{ animationDelay: '5s' }}
+          />
 
-                  {/* Label - appears on hover or when active */}
-                  <motion.span
-                    initial={{ opacity: 0, x: -10 }}
-                    className={`absolute left-6 text-xs font-semibold whitespace-nowrap px-3 py-1.5 rounded-lg backdrop-blur-md transition-all duration-300 ${
-                      activeSection === section.id
-                        ? 'opacity-100 translate-x-0 bg-blue-600 text-white shadow-lg'
-                        : 'opacity-0 -translate-x-2 bg-white/90 text-gray-700 shadow-md group-hover:opacity-100 group-hover:translate-x-0'
-                    }`}
-                  >
-                    {section.label}
-                  </motion.span>
-                </div>
-              </motion.a>
-            ))}
-          </nav>
+          <div className="noise absolute inset-0 opacity-60" aria-hidden />
         </div>
-      </motion.div>
 
-      {/* Navigation */}
-      <motion.nav
-        initial={{ y: -100 }}
-        animate={{ y: 0 }}
-        transition={{ duration: 0.6, ease: "easeOut" }}
-        className="fixed top-10 w-full bg-white/98 backdrop-blur-xl border-b border-gray-200/50 z-50 shadow-[0_10px_40px_-10px_rgba(0,0,0,0.1),0_2px_10px_-2px_rgba(0,0,0,0.05)]"
-        role="navigation"
-        aria-label="Main navigation"
-      >
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex justify-between items-center h-24">
-            <div className="flex items-center">
-              <a href="/" className="flex items-center gap-3" aria-label="Compound Meds Home">
-                <Image
-                  src="/logo.png"
-                  alt="Compound Meds Logo"
-                  width={100}
-                  height={100}
-                  className="object-contain rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105"
-                  priority
-                  style={{ padding: '0' }}
-                />
-              </a>
-            </div>
-
-            {/* Desktop Navigation */}
-            <div className="hidden md:flex items-center space-x-1">
-              <a href="#products" className="text-gray-700 hover:text-blue-600 hover:bg-blue-50 transition-all px-3 py-2 rounded-xl font-semibold flex items-center gap-1.5 group">
-                <CubeIcon className="w-4 h-4 group-hover:scale-110 transition-transform" />
-                <span>Products</span>
-              </a>
-              <Link href="/clinical-applications" className="text-gray-700 hover:text-blue-600 hover:bg-blue-50 transition-all px-3 py-2 rounded-xl font-semibold flex items-center gap-1.5 group">
-                <HeartIcon className="w-4 h-4 group-hover:scale-110 transition-transform" />
-                <span>Clinical Applications</span>
-              </Link>
-              <a href="#why-us" className="text-gray-700 hover:text-blue-600 hover:bg-blue-50 transition-all px-3 py-2 rounded-xl font-semibold flex items-center gap-1.5 group">
-                <TrophyIcon className="w-4 h-4 group-hover:scale-110 transition-transform" />
-                <span>Why Us</span>
-              </a>
-              <Link href="/about" className="text-gray-700 hover:text-blue-600 hover:bg-blue-50 transition-all px-3 py-2 rounded-xl font-semibold flex items-center gap-1.5 group">
-                <UserGroupIcon className="w-4 h-4 group-hover:scale-110 transition-transform" />
-                <span>About</span>
-              </Link>
-              <a href="#faq" className="text-gray-700 hover:text-blue-600 hover:bg-blue-50 transition-all px-3 py-2 rounded-xl font-semibold flex items-center gap-1.5 group">
-                <SparklesIcon className="w-4 h-4 group-hover:scale-110 transition-transform" />
-                <span>FAQ</span>
-              </a>
-            </div>
-
-            {/* Desktop CTA */}
-            <motion.a
-              href="#contact"
-              whileHover={{ scale: 1.05, y: -2 }}
-              whileTap={{ scale: 0.95 }}
-              className="hidden md:inline-block bg-gradient-to-r from-blue-600 via-blue-700 to-purple-600 text-white px-6 py-2.5 rounded-xl shadow-[0_8px_25px_-5px_rgba(59,130,246,0.5),0_4px_12px_-3px_rgba(147,51,234,0.3)] hover:shadow-[0_15px_40px_-8px_rgba(59,130,246,0.6),0_8px_20px_-5px_rgba(147,51,234,0.4)] transition-all duration-300 font-bold text-sm relative overflow-hidden group"
-              aria-label="Get started with Compound Meds - Request a consultation"
-            >
-              <span className="relative z-10 drop-shadow-sm">Get Started</span>
-              <div className="absolute inset-0 bg-gradient-to-r from-purple-600 via-blue-700 to-blue-600 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-            </motion.a>
-
-            {/* Mobile Menu Button */}
-            <button
-              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="md:hidden p-2 text-gray-700 hover:text-blue-600 hover:bg-blue-50 rounded-lg transition-all"
-              aria-label={mobileMenuOpen ? 'Close menu' : 'Open menu'}
-              aria-expanded={mobileMenuOpen}
-              aria-controls="mobile-menu"
-            >
-              {mobileMenuOpen ? <XMarkIcon className="w-6 h-6" /> : <Bars3Icon className="w-6 h-6" />}
-            </button>
+        <div className="relative z-10 mx-auto max-w-6xl px-6 text-center lg:px-12">
+          <div className="mb-8 inline-flex items-center gap-2 rounded-full border border-botanical-300/40 bg-white/10 px-5 py-2.5">
+            <ShieldCheckIcon className="h-4 w-4 text-botanical-200" />
+            <span className="text-sm font-semibold text-white tracking-wide">Trusted by 500+ Pharmacies & Clinics</span>
           </div>
 
-          {/* Mobile Menu */}
-          {mobileMenuOpen && (
-            <motion.div
-              id="mobile-menu"
-              initial={{ opacity: 0, height: 0 }}
-              animate={{ opacity: 1, height: 'auto' }}
-              exit={{ opacity: 0, height: 0 }}
-              className="md:hidden border-t border-gray-200 bg-white"
-            >
-              <div className="px-4 py-4 space-y-2">
-                <a
-                  href="#products"
-                  onClick={() => setMobileMenuOpen(false)}
-                  className="block text-gray-700 hover:text-blue-600 hover:bg-blue-50 transition-all px-4 py-3 rounded-lg font-medium"
-                >
-                  Products
-                </a>
-                <Link
-                  href="/clinical-applications"
-                  onClick={() => setMobileMenuOpen(false)}
-                  className="block text-gray-700 hover:text-blue-600 hover:bg-blue-50 transition-all px-4 py-3 rounded-lg font-medium"
-                >
-                  Clinical Applications
-                </Link>
-                <a
-                  href="#why-us"
-                  onClick={() => setMobileMenuOpen(false)}
-                  className="block text-gray-700 hover:text-blue-600 hover:bg-blue-50 transition-all px-4 py-3 rounded-lg font-medium"
-                >
-                  Why Us
-                </a>
-                <Link
-                  href="/about"
-                  onClick={() => setMobileMenuOpen(false)}
-                  className="block text-gray-700 hover:text-blue-600 hover:bg-blue-50 transition-all px-4 py-3 rounded-lg font-medium"
-                >
-                  About
-                </Link>
-                <a
-                  href="#faq"
-                  onClick={() => setMobileMenuOpen(false)}
-                  className="block text-gray-700 hover:text-blue-600 hover:bg-blue-50 transition-all px-4 py-3 rounded-lg font-medium"
-                >
-                  FAQ
-                </a>
-                <a
-                  href="#contact"
-                  onClick={() => setMobileMenuOpen(false)}
-                  className="block bg-gradient-to-r from-blue-600 to-blue-700 text-white px-4 py-3 rounded-lg text-center font-bold"
-                >
-                  Get Started
-                </a>
-              </div>
-            </motion.div>
-          )}
-        </div>
-      </motion.nav>
+          <h1 className="mx-auto mb-6 max-w-5xl text-4xl font-bold leading-tight text-white drop-shadow-xl md:text-5xl lg:text-6xl xl:text-7xl">
+            Verified Pharmaceutical <span className="text-botanical-300">Sourcing</span>
+          </h1>
 
-      {/* Hero Section - Premium Redesign */}
-      <section id="main-content" className="pt-48 pb-24 px-4 sm:px-6 lg:px-8 relative overflow-hidden min-h-screen flex items-center" tabIndex={-1}>
-        {/* Subtle animated background orbs */}
-        <div className="absolute inset-0 pointer-events-none">
-          <div className="absolute top-1/4 left-[8%] w-[200px] h-[200px] sm:w-[300px] sm:h-[300px] lg:w-[450px] lg:h-[450px] bg-blue-400/25 rounded-full filter blur-3xl animate-blob-slow"></div>
-          <div className="absolute bottom-1/4 right-[12%] w-[180px] h-[180px] sm:w-[280px] sm:h-[280px] lg:w-[400px] lg:h-[400px] bg-purple-400/30 rounded-full filter blur-3xl animate-blob-slow animation-delay-4000"></div>
-          <div className="absolute top-1/2 right-[30%] w-[160px] h-[160px] sm:w-[250px] sm:h-[250px] lg:w-[350px] lg:h-[350px] bg-cyan-400/20 rounded-full filter blur-3xl animate-blob-slow animation-delay-2000"></div>
-        </div>
+          <p className="mx-auto mb-8 max-w-3xl text-lg text-white/90 leading-relaxed md:text-xl">
+            Your trusted partner for compliant APIs, sterile vials, and compounded medications.{' '}
+            <span className="font-semibold text-botanical-200">Sourced from verified, licensed partners.</span>
+          </p>
 
-        <div className="max-w-7xl mx-auto w-full relative z-10">
-          <div className="grid lg:grid-cols-2 gap-16 lg:gap-20 items-center">
-            {/* Left Column - Main Content */}
-            <motion.div
-              initial={{ opacity: 0, x: -30 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.8 }}
-              className="relative z-10"
-            >
-              {/* Trust Badge */}
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.2 }}
-                className="inline-flex items-center gap-2 bg-white backdrop-blur-md border border-blue-200/50 rounded-full px-5 py-2.5 mb-10 shadow-lg"
+          <div className="mb-8 flex flex-wrap items-center justify-center gap-2">
+            {featurePills.map((pill) => (
+              <span
+                key={pill}
+                className="rounded-full border border-white/20 bg-white/10 px-3 py-1.5 text-sm font-semibold text-white"
               >
-                <CheckBadgeIcon className="w-5 h-5 text-blue-600" />
-                <span className="text-sm font-bold text-gray-700 tracking-wide">Trusted by pharmacies and clinics nationwide</span>
-              </motion.div>
-
-              {/* Main Headline - Fixed spacing and overlap */}
-              <h1 className="text-5xl sm:text-6xl lg:text-7xl font-black text-gray-900 leading-[1.15] tracking-tight mb-10">
-                Verified Pharmaceutical Sourcing
-                <br />
-                <span className="relative inline-block mt-2 mb-3">
-                  <span className="relative z-10 bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
-                    For Pharmacies & Clinics
-                  </span>
-                  <div className="absolute -bottom-1 left-0 right-0 h-2 bg-gradient-to-r from-blue-400/30 to-purple-400/30 blur-sm"></div>
-                </span>
-              </h1>
-
-              {/* Value Proposition - Better spacing */}
-              <p className="text-xl text-gray-600 leading-relaxed max-w-xl mb-10">
-                We connect you with licensed suppliers of pharmaceutical-grade APIs, sterile components, and compounded medications—sourced through verified, compliant partners.
-              </p>
-              <p className="text-lg text-blue-700 font-bold mb-12 max-w-xl">
-                Same-day account setup • No minimum orders • Flexible payment options
-              </p>
-
-              {/* Key Benefits Grid - Unified colors */}
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-14 max-w-xl">
-                {[
-                  { icon: BoltIcon, text: 'Same-Day Account Setup' },
-                  { icon: CircleStackIcon, text: 'Verified Documentation' },
-                  { icon: ShieldCheckIcon, text: 'Licensed U.S. Partners Only' },
-                  { icon: CheckBadgeIcon, text: '100% Verified Documentation' }
-                ].map((benefit, index) => (
-                  <motion.div
-                    key={benefit.text}
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: 0.4 + index * 0.1 }}
-                    className="flex items-center gap-3 bg-white backdrop-blur-sm rounded-2xl px-6 py-4 border border-gray-200 shadow-lg hover:shadow-xl hover:-translate-y-1 transition-all duration-300"
-                  >
-                    <benefit.icon className="w-6 h-6 text-blue-600 flex-shrink-0" />
-                    <span className="text-sm font-bold text-gray-900">{benefit.text}</span>
-                  </motion.div>
-                ))}
-              </div>
-
-              {/* CTA Buttons */}
-              <div className="flex flex-col sm:flex-row gap-4">
-                <motion.a
-                  href="#contact"
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.6 }}
-                  whileHover={{ scale: 1.03, y: -2 }}
-                  whileTap={{ scale: 0.98 }}
-                  className="group relative bg-gradient-to-r from-blue-600 via-blue-700 to-blue-800 text-white px-8 py-4 rounded-2xl text-base font-bold shadow-[0_12px_40px_-10px_rgba(59,130,246,0.5)] hover:shadow-[0_20px_60px_-15px_rgba(59,130,246,0.6)] transition-all duration-300 flex items-center justify-center gap-2 overflow-hidden"
-                >
-                  <span className="relative z-10 drop-shadow-sm">Request Pricing</span>
-                  <ArrowRightIcon className="w-5 h-5 relative z-10 group-hover:translate-x-1 transition-transform" />
-                  <div className="absolute inset-0 bg-gradient-to-r from-blue-700 to-purple-700 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-                </motion.a>
-
-                <motion.a
-                  href="#products"
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.7 }}
-                  whileHover={{ scale: 1.03, y: -2 }}
-                  whileTap={{ scale: 0.98 }}
-                  className="bg-white/90 backdrop-blur-sm text-gray-900 px-8 py-4 rounded-2xl text-base font-bold shadow-[0_8px_30px_-10px_rgba(0,0,0,0.15)] hover:shadow-[0_15px_45px_-15px_rgba(0,0,0,0.2)] transition-all duration-300 border-2 border-gray-200 hover:border-blue-600 flex items-center justify-center gap-2"
-                >
-                  <span>View Catalog</span>
-                  <BeakerIcon className="w-5 h-5" />
-                </motion.a>
-              </div>
-            </motion.div>
-
-            {/* Right Column - Visual Elements */}
-            <motion.div
-              initial={{ opacity: 0, x: 30 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.8, delay: 0.3 }}
-              className="relative hidden lg:block"
-            >
-              {/* Stats Cards - Unified styling */}
-              <div className="grid grid-cols-2 gap-5">
-                {[
-                  { label: 'Pharmacies & Clinics Served', value: '500+', icon: UserGroupIcon },
-                  { label: 'Verified Documentation', value: '100%', icon: ShieldCheckIcon },
-                  { label: 'Same-Day Account Setup', value: 'Yes', icon: BoltIcon },
-                  { label: 'States Supported', value: '50', icon: CircleStackIcon }
-                ].map((stat, index) => (
-                  <motion.div
-                    key={stat.label}
-                    initial={{ opacity: 0, scale: 0.9 }}
-                    animate={{ opacity: 1, scale: 1 }}
-                    transition={{ delay: 0.5 + index * 0.1, duration: 0.4 }}
-                    whileHover={{ y: -6, scale: 1.02 }}
-                    className="bg-white backdrop-blur-xl rounded-3xl p-8 shadow-xl border border-gray-200 relative overflow-hidden group cursor-default hover:shadow-2xl transition-all duration-300"
-                  >
-                    <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-blue-500/5 to-purple-500/5 rounded-full filter blur-2xl group-hover:scale-125 transition-transform duration-500"></div>
-                    <stat.icon className="w-10 h-10 text-blue-600 mb-5 relative z-10" />
-                    <div className="text-4xl font-black text-gray-900 mb-2 relative z-10">{stat.value}</div>
-                    <div className="text-xs font-bold text-gray-500 uppercase tracking-wide relative z-10">{stat.label}</div>
-                  </motion.div>
-                ))}
-              </div>
-
-              {/* Floating Badge */}
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.9, duration: 0.5 }}
-                className="mt-7 bg-gradient-to-r from-blue-600 to-purple-600 rounded-3xl p-7 shadow-[0_20px_60px_-15px_rgba(59,130,246,0.4)] relative overflow-hidden"
-              >
-                <div className="absolute inset-0 bg-white/10"></div>
-                <div className="relative z-10">
-                  <div className="flex items-center gap-1 mb-3">
-                    <StarIcon className="w-5 h-5 text-yellow-300 fill-yellow-300" />
-                    <StarIcon className="w-5 h-5 text-yellow-300 fill-yellow-300" />
-                    <StarIcon className="w-5 h-5 text-yellow-300 fill-yellow-300" />
-                    <StarIcon className="w-5 h-5 text-yellow-300 fill-yellow-300" />
-                    <StarIcon className="w-5 h-5 text-yellow-300 fill-yellow-300" />
-                  </div>
-                  <p className="text-white font-semibold text-base mb-2 leading-snug">"40% cost savings, zero quality compromise"</p>
-                  <p className="text-blue-100 text-sm font-medium">— Dr. Sarah Mitchell, Wellness Clinic</p>
-                </div>
-              </motion.div>
-            </motion.div>
-          </div>
-        </div>
-      </section>
-
-      {/* Trust Bar - Unified styling */}
-      <section className="py-14 px-4 sm:px-6 lg:px-8 bg-white border-y border-gray-200">
-        <div className="max-w-7xl mx-auto">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-8 md:gap-12">
-            {[
-              { icon: BoltIcon, label: 'Same-Day Account Setup' },
-              { icon: ArrowTrendingUpIcon, label: 'Flexible Payment Options' },
-              { icon: CircleStackIcon, label: 'No Minimum Orders' },
-              { icon: ShieldCheckIcon, label: 'Transparent Documentation' }
-            ].map((item, index) => (
-              <motion.div
-                key={item.label}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: index * 0.1 }}
-                whileHover={{ y: -4, scale: 1.02 }}
-                className="flex flex-col items-center text-center group"
-              >
-                <div className="mb-4 p-4 rounded-2xl bg-gradient-to-br from-blue-50 to-purple-50 group-hover:shadow-xl transition-all duration-300 shadow-lg border border-blue-100/50">
-                  <item.icon className="w-9 h-9 text-blue-600" />
-                </div>
-                <span className="text-sm font-bold text-gray-900">{item.label}</span>
-              </motion.div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* What We Supply - Product Carousel */}
-      <section id="products" className="py-16 px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-blue-50/40 to-purple-50/40">
-        <div className="max-w-7xl mx-auto">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="text-center mb-12"
-          >
-            <div className="inline-flex items-center gap-2 bg-white border border-blue-200 rounded-full px-6 py-3 mb-8 shadow-lg">
-              <CubeIcon className="w-5 h-5 text-blue-600" />
-              <span className="text-sm font-bold text-blue-700">OUR PRODUCT LINE</span>
-            </div>
-            <h2 className="text-4xl sm:text-5xl font-black text-gray-900 mb-6 tracking-tight">What We Supply</h2>
-            <p className="text-xl text-gray-600 max-w-2xl mx-auto">Premium pharmaceutical solutions designed for your practice's success</p>
-          </motion.div>
-
-          {/* Product Carousel */}
-          <ProductsGrid />
-
-          <div className="text-center mt-16">
-            <motion.a
-              href="#contact"
-              whileHover={{ scale: 1.05, y: -2 }}
-              whileTap={{ scale: 0.95 }}
-              className="inline-flex items-center gap-2 bg-gradient-to-r from-blue-600 via-blue-700 to-purple-600 text-white px-10 py-5 rounded-2xl text-lg font-bold shadow-[0_10px_35px_-5px_rgba(59,130,246,0.4),0_5px_15px_-3px_rgba(147,51,234,0.3)] hover:shadow-[0_20px_50px_-8px_rgba(59,130,246,0.5),0_10px_25px_-5px_rgba(147,51,234,0.4)] transition-all duration-300 relative overflow-hidden group"
-            >
-              <span className="relative z-10 drop-shadow-sm">Get Started Today</span>
-              <ArrowRightIcon className="w-5 h-5 relative z-10 group-hover:translate-x-1 transition-transform" />
-              <div className="absolute inset-0 bg-gradient-to-r from-purple-600 via-blue-700 to-blue-600 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-            </motion.a>
-          </div>
-        </div>
-      </section>
-
-      {/* Testimonials Grid - Static 3-Column */}
-      <TestimonialsGrid />
-
-      {/* The Peptide Revolution Callout */}
-      <section className="relative py-16 px-4 sm:px-6 lg:px-8 overflow-hidden">
-        {/* Animated gradient background */}
-        <div className="absolute inset-0 bg-gradient-to-br from-blue-600 via-indigo-700 to-purple-800"></div>
-
-        {/* Animated blobs */}
-        <div className="absolute inset-0">
-          <div className="absolute top-0 left-1/4 w-[280px] h-[280px] sm:w-[450px] sm:h-[450px] lg:w-[700px] lg:h-[700px] bg-purple-500/30 rounded-full filter blur-3xl animate-blob"></div>
-          <div className="absolute bottom-0 right-1/4 w-[250px] h-[250px] sm:w-[400px] sm:h-[400px] lg:w-[600px] lg:h-[600px] bg-blue-500/30 rounded-full filter blur-3xl animate-blob animation-delay-2000"></div>
-          <div className="absolute top-1/2 left-1/2 w-[220px] h-[220px] sm:w-[350px] sm:h-[350px] lg:w-[500px] lg:h-[500px] bg-cyan-400/20 rounded-full filter blur-3xl animate-blob animation-delay-4000"></div>
-        </div>
-
-        {/* Grid pattern overlay */}
-        <div className="absolute inset-0 opacity-[0.04]" style={{
-          backgroundImage: `linear-gradient(rgba(255,255,255,0.15) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.15) 1px, transparent 1px)`,
-          backgroundSize: '60px 60px'
-        }}></div>
-
-        <div className="max-w-6xl mx-auto relative z-10">
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
-            className="text-center"
-          >
-            {/* Badge */}
-            <motion.div
-              initial={{ opacity: 0, scale: 0.9 }}
-              whileInView={{ opacity: 1, scale: 1 }}
-              viewport={{ once: true }}
-              transition={{ delay: 0.2 }}
-              className="inline-flex items-center gap-2 bg-white/15 backdrop-blur-md border border-white/25 rounded-full px-6 py-3 mb-10 shadow-2xl"
-            >
-              <SparklesIcon className="w-5 h-5 text-yellow-300" />
-              <span className="text-sm font-bold text-white tracking-wider">THE FUTURE OF HEALTHCARE</span>
-            </motion.div>
-
-            {/* Main Headline */}
-            <motion.h2
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: 0.3 }}
-              className="text-5xl sm:text-6xl lg:text-7xl font-black text-white mb-8 leading-[1.1] tracking-tight"
-            >
-              We're at the Frontier of
-              <br />
-              <span className="relative inline-block mt-2">
-                <span className="relative z-10 bg-gradient-to-r from-cyan-300 via-blue-200 to-purple-300 bg-clip-text text-transparent">
-                  Proactive Healthcare
-                </span>
-                <div className="absolute -bottom-2 left-0 right-0 h-4 bg-white/20 blur-xl"></div>
+                {pill}
               </span>
-            </motion.h2>
+            ))}
+          </div>
 
-            {/* Content Cards */}
-            <div className="grid md:grid-cols-2 gap-6 max-w-5xl mx-auto mb-12">
-              {/* Card 1 */}
-              <motion.div
-                initial={{ opacity: 0, x: -20 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: 0.4 }}
-                className="bg-white/10 backdrop-blur-lg border border-white/20 rounded-2xl p-8 text-left"
-              >
-                <div className="w-12 h-12 bg-gradient-to-br from-cyan-400 to-blue-500 rounded-xl flex items-center justify-center mb-4 shadow-lg">
-                  <HeartIcon className="w-7 h-7 text-white" />
-                </div>
-                <h3 className="text-2xl font-bold text-white mb-3">Preventative Therapies</h3>
-                <p className="text-lg text-blue-100 leading-relaxed">
-                  Peptides are transforming healthcare—from GLP-1s revolutionizing weight management to NAD+ supporting cellular health. This isn't reactive medicine anymore.
-                </p>
-              </motion.div>
-
-              {/* Card 2 */}
-              <motion.div
-                initial={{ opacity: 0, x: 20 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: 0.5 }}
-                className="bg-white/10 backdrop-blur-lg border border-white/20 rounded-2xl p-8 text-left"
-              >
-                <div className="w-12 h-12 bg-gradient-to-br from-purple-400 to-indigo-500 rounded-xl flex items-center justify-center mb-4 shadow-lg">
-                  <TrophyIcon className="w-7 h-7 text-white" />
-                </div>
-                <h3 className="text-2xl font-bold text-white mb-3">Personalized Protocols</h3>
-                <p className="text-lg text-blue-100 leading-relaxed">
-                  Healthcare providers are realizing peptides represent the next frontier. We supply you with verified, authentic pharmaceutical-grade ingredients to lead that change.
-                </p>
-              </motion.div>
-            </div>
-
-            {/* CTA */}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: 0.6 }}
+          <div className="mb-10 flex flex-col items-center justify-center gap-3 sm:flex-row">
+            <a
+              href="#contact"
+              className="btn-press inline-flex items-center gap-2 rounded-2xl bg-botanical-500 px-8 py-4 text-lg font-bold text-white shadow-2xl transition hover:scale-105 hover:bg-botanical-600"
             >
-              <motion.a
-                href="#contact"
-                whileHover={{ scale: 1.05, y: -3 }}
-                whileTap={{ scale: 0.98 }}
-                className="inline-flex items-center gap-3 bg-white text-blue-700 px-12 py-6 rounded-2xl text-xl font-black hover:shadow-[0_20px_70px_-10px_rgba(255,255,255,0.5)] transition-all duration-300 group"
-              >
-                <span>Partner With Us</span>
-                <ArrowRightIcon className="w-6 h-6 group-hover:translate-x-1 transition-transform" />
-              </motion.a>
-              <p className="text-sm text-blue-200 mt-6 font-medium">
-                Be proactive with your patients' health
-              </p>
-            </motion.div>
-          </motion.div>
-        </div>
-      </section>
-
-      {/* Therapies & Conditions Section */}
-      <section id="therapies" className="py-16 px-4 sm:px-6 lg:px-8 bg-white">
-        <div className="max-w-7xl mx-auto">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="text-center mb-12"
-          >
-            <div className="inline-flex items-center gap-2 bg-white border border-blue-200 rounded-full px-6 py-3 mb-8 shadow-lg">
-              <HeartIcon className="w-5 h-5 text-blue-600" />
-              <span className="text-sm font-bold text-blue-700">TREATMENT AREAS</span>
-            </div>
-            <h2 className="text-4xl sm:text-5xl font-black text-gray-900 mb-6 tracking-tight">Therapies & Conditions</h2>
-            <p className="text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
-              Our APIs and compounded medications support treatments across:
-            </p>
-          </motion.div>
-
-          <div className="grid md:grid-cols-2 gap-8 max-w-5xl mx-auto">
-            {[
-              {
-                icon: ArrowTrendingUpIcon,
-                title: 'Weight Management & Metabolic Health',
-                description: 'GLP-1s like Semaglutide and Tirzepatide'
-              },
-              {
-                icon: HeartIcon,
-                title: 'Hormone & Sexual Health',
-                description: 'Testosterone, Enclomiphene, PT-141, Tadalafil'
-              },
-              {
-                icon: SparklesIcon,
-                title: 'Anti-Aging & Recovery',
-                description: 'NAD+, Tesamorelin, Sermorelin, CJC-1295'
-              },
-              {
-                icon: BeakerIcon,
-                title: 'Specialized Compounding',
-                description: 'Hair loss, dermatology, IV nutrition, BLT cream'
-              }
-            ].map((therapy, index) => (
-              <motion.div
-                key={therapy.title}
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: index * 0.1 }}
-                whileHover={{ y: -6, scale: 1.01 }}
-                className="relative bg-gradient-to-br from-blue-50/40 to-purple-50/40 rounded-2xl p-8 shadow-lg hover:shadow-xl transition-all duration-300 border border-gray-200"
-              >
-                <div className="w-14 h-14 rounded-xl bg-white border border-blue-100 flex items-center justify-center mb-6 shadow-md">
-                  <therapy.icon className="w-7 h-7 text-blue-600" />
-                </div>
-                <h3 className="text-xl font-bold text-gray-900 mb-3">{therapy.title}</h3>
-                <p className="text-gray-600 leading-relaxed">{therapy.description}</p>
-              </motion.div>
-            ))}
+              Request Pricing
+              <ArrowRightIcon className="h-5 w-5" />
+            </a>
+            <a
+              href="#products"
+              className="btn-press inline-flex items-center gap-2 rounded-2xl bg-white/95 px-8 py-4 text-lg font-bold text-gray-900 shadow-xl transition hover:bg-white"
+            >
+              View Products
+            </a>
           </div>
 
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="text-center mt-12"
-          >
-            <p className="text-gray-600 italic">
-              Not limited to these categories — contact us for your specific protocols.
-            </p>
-          </motion.div>
-        </div>
-      </section>
-
-      {/* Why Choose Compound Meds - Merged Section */}
-      <section id="why-us" className="relative py-24 px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-blue-50/40 to-purple-50/40 overflow-hidden">
-        {/* Subtle animated background orbs */}
-        <div className="absolute inset-0 pointer-events-none">
-          <div className="absolute top-20 right-[12%] w-[170px] h-[170px] sm:w-[270px] sm:h-[270px] lg:w-[380px] lg:h-[380px] bg-purple-400/20 rounded-full filter blur-3xl animate-blob-slow"></div>
-          <div className="absolute bottom-20 left-[18%] w-[160px] h-[160px] sm:w-[240px] sm:h-[240px] lg:w-[340px] lg:h-[340px] bg-cyan-400/18 rounded-full filter blur-3xl animate-blob-slow animation-delay-4000"></div>
-        </div>
-
-        <div className="max-w-7xl mx-auto relative z-10">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="text-center mb-16"
-          >
-            <div className="inline-flex items-center gap-2 bg-white border border-blue-200 rounded-full px-6 py-3 mb-8 shadow-lg">
-              <TrophyIcon className="w-5 h-5 text-blue-600" />
-              <span className="text-sm font-bold text-blue-700">WHY COMPOUND MEDS</span>
-            </div>
-            <h2 className="text-4xl sm:text-5xl font-black text-gray-900 mb-6 tracking-tight">Your Pharmaceutical Sourcing Partner</h2>
-            <p className="text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
-              We connect pharmacies and clinics with verified suppliers—simplifying compliance, improving margins, and ensuring reliable access to pharmaceutical-grade products.
-            </p>
-          </motion.div>
-
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto mb-16">
-            {[
-              {
-                icon: ShieldCheckIcon,
-                title: 'Verified Sourcing',
-                description: 'All products sourced from licensed facilities with complete documentation, original COAs, and full chain-of-custody traceability.'
-              },
-              {
-                icon: CircleStackIcon,
-                title: 'All-In-One Platform',
-                description: 'Access pharmaceutical-grade APIs, sterile components, and compounded medications through a single trusted partner.'
-              },
-              {
-                icon: BoltIcon,
-                title: 'Transparent Communication',
-                description: 'No hidden fees, fast responses, and clear documentation. Dedicated support when you need it.'
-              },
-              {
-                icon: TrophyIcon,
-                title: 'Reliable Supply Chain',
-                description: 'Consistent product availability with proactive order management and logistics to prevent delays and uncertainty.'
-              },
-              {
-                icon: ArrowTrendingUpIcon,
-                title: 'Flexible Terms',
-                description: 'No minimum orders, multiple payment options, and competitive pricing designed for independent pharmacies and clinics.'
-              }
-            ].map((feature, index) => (
-              <motion.div
-                key={feature.title}
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: index * 0.1 }}
-                whileHover={{ y: -6, scale: 1.02 }}
-                className="relative bg-white rounded-2xl p-8 shadow-xl hover:shadow-2xl transition-all duration-300 border border-gray-200"
+          <div className="mx-auto grid max-w-5xl grid-cols-2 gap-4 md:grid-cols-4">
+            {stats.map((stat) => (
+              <div
+                key={stat.label}
+                className="rounded-2xl border border-white/20 bg-white/10 p-6 text-center text-white backdrop-blur-xl transition hover:bg-white/15"
               >
-                <div className="w-14 h-14 rounded-xl bg-gradient-to-br from-blue-50 to-purple-50 border border-blue-100 flex items-center justify-center mb-6 group-hover:scale-105 transition-transform duration-300 shadow-md">
-                  <feature.icon className="w-7 h-7 text-blue-600" />
-                </div>
-                <h3 className="text-xl font-bold text-gray-900 mb-3">{feature.title}</h3>
-                <p className="text-gray-600 leading-relaxed">{feature.description}</p>
-              </motion.div>
+                <p className="text-3xl font-display font-bold md:text-4xl">
+                  {stat.value}
+                </p>
+                <p className="text-xs font-semibold uppercase tracking-wide text-white/80">{stat.label}</p>
+              </div>
             ))}
           </div>
+        </div>
 
-          <div className="text-center">
-            <a href="#contact" className="inline-flex items-center gap-2 bg-gradient-to-r from-blue-600 to-blue-700 text-white px-10 py-5 rounded-2xl text-lg font-bold hover:shadow-2xl hover:scale-105 transition-all duration-300">
+        <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-white to-transparent" />
+      </section>
+
+      <section
+        id="products"
+        className="relative overflow-hidden bg-gradient-to-b from-white via-medical-50/30 to-white px-6 py-20 lg:px-12"
+      >
+        <div className="relative z-10 mx-auto max-w-6xl">
+          <div className="mb-12 text-center" data-animate="true">
+            <div className="mx-auto mb-4 inline-flex items-center gap-2 rounded-full border border-medical-200 bg-medical-100 px-5 py-2">
+              <CubeTransparentIcon className="h-4 w-4 text-medical-600" />
+              <span className="text-xs font-bold text-medical-700">OUR PRODUCT LINE</span>
+            </div>
+            <h2 className="text-3xl font-display font-bold text-gray-900 md:text-4xl lg:text-5xl">What We Supply</h2>
+            <p className="mt-3 text-lg text-gray-600">
+              Premium pharmaceutical solutions designed for your practice&apos;s success
+            </p>
+          </div>
+
+          <div className="mb-8 grid gap-6 md:grid-cols-3">
+            {products.map((product) => {
+              const Icon = product.icon;
+              return (
+                <div key={product.title} className="group relative" data-animate="true">
+                  <div
+                    className={`absolute inset-0 rounded-[2rem] bg-gradient-to-br ${product.gradient} opacity-80 transition duration-500 group-hover:scale-105`}
+                  />
+                  <div className="relative rounded-[2rem] bg-white p-8 shadow-xl transition duration-500 group-hover:-translate-y-2 group-hover:shadow-2xl">
+                    <div className={`mb-6 flex h-16 w-16 items-center justify-center rounded-2xl bg-gradient-to-br ${product.chip}`}>
+                      <Icon className={`h-8 w-8 ${product.iconColor}`} />
+                    </div>
+                    <h3 className="text-2xl font-display font-bold text-gray-900">{product.title}</h3>
+                    <p className="mt-3 text-gray-600">{product.description}</p>
+                    <ul className="mt-6 space-y-3">
+                      {product.features.map((feature) => (
+                        <li key={feature} className="flex items-center gap-3 text-gray-700">
+                          <ShieldCheckIcon className="h-5 w-5 text-botanical-500" />
+                          <span>{feature}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+
+          <p className="mb-8 text-center text-sm italic text-gray-500" data-animate="true">
+            Includes FDA Green-List Semaglutide and Tirzepatide.
+          </p>
+
+          <div className="text-center" data-animate="true">
+            <a
+              href="#contact"
+              className="btn-press inline-flex items-center gap-2 rounded-xl bg-botanical-600 px-8 py-4 text-base font-bold text-white shadow-xl transition hover:scale-105 hover:bg-botanical-700"
+            >
               Get Started Today
-              <ArrowRightIcon className="w-5 h-5" />
+              <ArrowRightIcon className="h-5 w-5" />
             </a>
           </div>
         </div>
       </section>
 
-      {/* FAQ Section - 7 Questions */}
-      <section id="faq" className="py-20 px-4 sm:px-6 lg:px-8 bg-white">
-        <div className="max-w-4xl mx-auto">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="text-center mb-16"
-          >
-            <div className="inline-flex items-center gap-2 bg-blue-50 border border-blue-200 rounded-full px-6 py-3 mb-8">
-              <SparklesIcon className="w-5 h-5 text-blue-600" />
-              <span className="text-sm font-bold text-blue-700 tracking-wide">FREQUENTLY ASKED QUESTIONS</span>
+      <section id="why-us" className="bg-white px-6 py-20 lg:px-12">
+        <div className="mx-auto max-w-6xl">
+          <div className="mb-10 text-center" data-animate="true">
+            <div className="mx-auto mb-4 inline-flex items-center gap-2 rounded-full border border-medical-200 bg-medical-50 px-5 py-2">
+              <SparklesIcon className="h-4 w-4 text-medical-600" />
+              <span className="text-xs font-bold text-medical-700">WHY PARTNERS CHOOSE US</span>
             </div>
-            <h2 className="text-4xl sm:text-5xl font-black text-gray-900 mb-6">Common Questions</h2>
-            <p className="text-xl text-gray-600 max-w-2xl mx-auto">Learn more about our sourcing process, compliance standards, and how we support pharmacies and clinics.</p>
-          </motion.div>
+            <h2 className="text-3xl font-display font-bold text-gray-900 md:text-4xl">Compliance without the friction</h2>
+            <p className="mt-3 text-base text-gray-600">
+              We manage supplier vetting, documentation, and logistics so your team stays focused on patient care.
+            </p>
+          </div>
 
-          <div className="space-y-4">
-            {[
-              {
-                question: 'What is Compound Meds?',
-                answer: 'Compound Meds is a pharmaceutical sourcing partner that connects licensed pharmacies and clinics with verified suppliers of APIs, sterile components, and compounded medications. We do not manufacture products—we facilitate access to trusted, compliant sources.'
-              },
-              {
-                question: 'Who are your suppliers?',
-                answer: 'We partner exclusively with licensed pharmaceutical manufacturers, FDA-registered facilities, and state-licensed 503A and 503B compounding pharmacies. All suppliers provide complete documentation including Certificates of Analysis and facility certifications.'
-              },
-              {
-                question: 'Are your products FDA-approved?',
-                answer: 'We work with FDA-registered facilities operating under current Good Manufacturing Practices (cGMP). Some suppliers hold FDA approval for specific product lines. Compounded medications are sourced from licensed pharmacies operating within FDA and state regulatory frameworks.'
-              },
-              {
-                question: 'What documentation do you provide?',
-                answer: 'Every product order includes original manufacturer Certificates of Analysis (COAs), facility certifications, and full chain-of-custody documentation. We provide complete traceability from manufacturer to your facility.'
-              },
-              {
-                question: 'What are your ordering minimums and terms?',
-                answer: 'Order minimums and payment terms vary by product and supplier. Many of our partners offer flexible terms including Net 30 payment options for qualified accounts. Contact us to discuss specific requirements for your facility.'
-              },
-              {
-                question: 'Which states do you serve?',
-                answer: 'We serve licensed pharmacies and clinics nationwide. Product availability may vary by state due to regulatory requirements and supplier distribution networks. Contact us to confirm availability in your area.'
-              },
-              {
-                question: 'How do I get started?',
-                answer: 'Submit an inquiry through our contact form or call us directly. We\'ll discuss your specific needs, verify your pharmacy or clinic license, and connect you with appropriate suppliers. Our team guides you through documentation requirements and ordering processes.'
-              }
-            ].map((faq, index) => (
-              <motion.div
-                key={index}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: index * 0.05 }}
-                className="bg-gradient-to-br from-blue-50/40 to-purple-50/40 rounded-2xl border border-gray-200 overflow-hidden"
-              >
-                <button
-                  onClick={() => setOpenFAQ(openFAQ === index ? null : index)}
-                  className="w-full text-left px-6 py-5 flex justify-between items-start gap-4 group hover:bg-white/50 transition-all"
+          <div className="grid gap-6 md:grid-cols-2">
+            {differentiators.map((item) => {
+              const Icon = item.icon;
+              return (
+                <div
+                  key={item.title}
+                  className="rounded-3xl border border-medical-100 bg-gradient-to-br from-white to-medical-50/40 p-8 shadow-lg transition hover:-translate-y-1 hover:shadow-xl"
+                  data-animate="true"
                 >
-                  <span className="font-bold text-gray-900 text-base group-hover:text-blue-600 transition-colors leading-snug pr-2">{faq.question}</span>
-                  <ChevronDownIcon className={`w-6 h-6 text-blue-600 flex-shrink-0 transition-transform duration-300 ${openFAQ === index ? 'rotate-180' : ''}`} />
-                </button>
-                <motion.div
-                  initial={false}
-                  animate={{ height: openFAQ === index ? 'auto' : 0, opacity: openFAQ === index ? 1 : 0 }}
-                  transition={{ duration: 0.3 }}
-                  className="overflow-hidden"
-                >
-                  <div className="px-6 pb-5 pt-2">
-                    <p className="text-gray-700 leading-relaxed">{faq.answer}</p>
+                  <div className="mb-5 flex h-12 w-12 items-center justify-center rounded-2xl bg-medical-100 text-medical-600">
+                    <Icon className="h-6 w-6" />
                   </div>
-                </motion.div>
-              </motion.div>
+                  <h3 className="text-xl font-bold text-gray-900">{item.title}</h3>
+                  <p className="mt-3 text-gray-600">{item.description}</p>
+                </div>
+              );
+            })}
+          </div>
+        </div>
+      </section>
+
+      <section id="testimonials" className="bg-white px-6 py-20 lg:px-12">
+        <div className="mx-auto max-w-6xl">
+          <div className="mb-12 text-center" data-animate="true">
+            <div className="mx-auto mb-4 inline-flex items-center gap-2 rounded-full border border-yellow-300 bg-yellow-50 px-5 py-2">
+              {[...Array(5)].map((_, idx) => (
+                <StarIcon key={idx} className="h-4 w-4 text-yellow-500" />
+              ))}
+              <span className="text-xs font-bold text-gray-700">5.0 RATING</span>
+            </div>
+            <h2 className="text-3xl font-display font-bold text-gray-900 md:text-4xl lg:text-5xl">
+              Trusted by Healthcare Professionals
+            </h2>
+          </div>
+
+          <div className="grid gap-6 md:grid-cols-3">
+            {testimonials.map((testimonial) => (
+              <div
+                key={testimonial.name}
+                className="flex flex-col rounded-2xl border border-gray-200 bg-white p-6 shadow-lg transition hover:-translate-y-1 hover:shadow-xl"
+                data-animate="true"
+              >
+                <div className="mb-6 flex gap-1">
+                  {[...Array(5)].map((_, idx) => (
+                    <StarIcon key={idx} className="h-5 w-5 text-yellow-500" />
+                  ))}
+                </div>
+                <p className="flex-grow text-lg text-gray-700">&ldquo;{testimonial.quote}&rdquo;</p>
+                <div className="mt-6 flex items-center gap-4 border-t border-gray-200 pt-6">
+                  <div className={`flex h-14 w-14 items-center justify-center rounded-full bg-gradient-to-br ${testimonial.badge} text-white font-bold`}>
+                    {testimonial.initials}
+                  </div>
+                  <div>
+                    <p className="font-bold text-gray-900">{testimonial.name}</p>
+                    <p className="text-sm text-gray-600">{testimonial.title}</p>
+                  </div>
+                </div>
+              </div>
             ))}
           </div>
-
-          {/* Contact CTA */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="mt-16 text-center bg-gradient-to-r from-blue-600 to-purple-600 rounded-3xl p-10 shadow-xl"
-          >
-            <h3 className="text-2xl font-black text-white mb-3">Need More Information?</h3>
-            <p className="text-blue-50 mb-6 text-lg">Contact our team to discuss your facility's specific sourcing needs.</p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <a
-                href="#contact"
-                className="inline-flex items-center justify-center gap-2 bg-white text-blue-600 px-8 py-4 rounded-xl font-bold hover:bg-blue-50 transition-all shadow-lg hover:shadow-xl hover:scale-105"
-              >
-                <EnvelopeIcon className="w-5 h-5" />
-                Contact Us
-              </a>
-              <a
-                href="tel:5612238133"
-                className="inline-flex items-center justify-center gap-2 bg-white/10 backdrop-blur-sm text-white border-2 border-white/30 px-8 py-4 rounded-xl font-bold hover:bg-white/20 transition-all"
-              >
-                <PhoneIcon className="w-5 h-5" />
-                (561) 223-8133
-              </a>
-            </div>
-          </motion.div>
         </div>
       </section>
 
-      {/* Contact Form - Unified */}
-      <section id="contact" className="py-16 px-4 sm:px-6 lg:px-8 bg-white">
-        <div className="max-w-5xl mx-auto">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="text-center mb-16"
-          >
-            <div className="inline-flex items-center gap-2 bg-white border border-blue-200 rounded-full px-6 py-3 mb-8 shadow-lg">
-              <EnvelopeIcon className="w-5 h-5 text-blue-600" />
-              <span className="text-sm font-bold text-blue-700">GET IN TOUCH</span>
+      <section id="faq" className="bg-gradient-to-b from-medical-50/60 to-white px-6 py-20 lg:px-12">
+        <div className="mx-auto max-w-4xl">
+          <div className="mb-10 text-center" data-animate="true">
+            <div className="mx-auto mb-4 inline-flex items-center gap-2 rounded-full border border-medical-200 bg-medical-100 px-5 py-2">
+              <QuestionBadge />
+              <span className="text-xs font-bold text-medical-700">FREQUENTLY ASKED QUESTIONS</span>
             </div>
-            <h2 className="text-4xl sm:text-5xl font-black text-gray-900 mb-6">Request a Consultation</h2>
-            <p className="text-lg sm:text-xl text-gray-600">
-              No obligation. Just honest answers about how we can support your pharmacy and clinic.
+            <h2 className="text-3xl font-display font-bold text-gray-900 md:text-4xl">Answers on compliance & supply</h2>
+            <p className="mt-3 text-base text-gray-600">
+              Still have questions? Reach out and our sourcing team will respond within one business day.
             </p>
-          </motion.div>
+          </div>
 
-          <div className="bg-white rounded-3xl shadow-2xl p-4 sm:p-8 md:p-12 border border-gray-200">
-            <div className="grid md:grid-cols-2 gap-4 sm:gap-6 mb-8">
-              <div className="flex items-start gap-3 sm:gap-4 p-4 sm:p-6 rounded-2xl bg-gradient-to-br from-blue-50 to-purple-50 border border-blue-100 hover:shadow-lg transition-all duration-300">
-                <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-xl bg-gradient-to-br from-blue-600 to-purple-600 flex items-center justify-center flex-shrink-0 shadow-md">
-                  <PhoneIcon className="w-5 h-5 sm:w-6 sm:h-6 text-white" />
-                </div>
-                <div className="min-w-0">
-                  <h3 className="font-bold text-gray-900 mb-1 sm:mb-2 text-sm sm:text-base">Call us directly</h3>
-                  <a href="tel:5612238133" className="text-blue-600 hover:text-blue-700 text-lg sm:text-xl font-bold break-all">
-                    (561) 223-8133
-                  </a>
-                </div>
-              </div>
-              <div className="flex items-start gap-3 sm:gap-4 p-4 sm:p-6 rounded-2xl bg-gradient-to-br from-blue-50 to-purple-50 border border-blue-100 hover:shadow-lg transition-all duration-300">
-                <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-xl bg-gradient-to-br from-blue-600 to-purple-600 flex items-center justify-center flex-shrink-0 shadow-md">
-                  <EnvelopeIcon className="w-5 h-5 sm:w-6 sm:h-6 text-white" />
-                </div>
-                <div className="min-w-0 flex-1">
-                  <h3 className="font-bold text-gray-900 mb-1 sm:mb-2 text-sm sm:text-base">Email us</h3>
-                  <a href="mailto:hello@compoundmeds.com" className="text-blue-600 hover:text-blue-700 text-base sm:text-xl font-bold block break-all">
-                    hello@compoundmeds.com
-                  </a>
-                  <p className="text-xs sm:text-sm text-gray-600 mt-1">Response within 24 hours</p>
-                </div>
-              </div>
-            </div>
-
-            <form className="space-y-4 sm:space-y-6" aria-label="Contact form">
-              <div className="grid md:grid-cols-2 gap-4 sm:gap-6">
-                <div>
-                  <label htmlFor="contact-name" className="block text-xs sm:text-sm font-bold text-gray-700 mb-2">
-                    Name <span className="text-red-600" aria-label="required">*</span>
-                  </label>
-                  <input
-                    type="text"
-                    id="contact-name"
-                    name="name"
-                    placeholder="Your full name"
-                    className="w-full px-3 py-3 sm:px-4 sm:py-4 border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-all bg-white text-sm sm:text-base"
-                    required
-                    aria-required="true"
-                  />
-                </div>
-                <div>
-                  <label htmlFor="contact-email" className="block text-xs sm:text-sm font-bold text-gray-700 mb-2">
-                    Email <span className="text-red-600" aria-label="required">*</span>
-                  </label>
-                  <input
-                    type="email"
-                    id="contact-email"
-                    name="email"
-                    placeholder="your.email@clinic.com"
-                    className="w-full px-3 py-3 sm:px-4 sm:py-4 border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-all bg-white text-sm sm:text-base"
-                    required
-                    aria-required="true"
-                  />
-                </div>
-              </div>
-
-              <div className="grid md:grid-cols-2 gap-4 sm:gap-6">
-                <div>
-                  <label htmlFor="contact-phone" className="block text-xs sm:text-sm font-bold text-gray-700 mb-2">
-                    Phone <span className="text-red-600" aria-label="required">*</span>
-                  </label>
-                  <input
-                    type="tel"
-                    id="contact-phone"
-                    name="phone"
-                    placeholder="(555) 123-4567"
-                    className="w-full px-3 py-3 sm:px-4 sm:py-4 border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-all bg-white text-sm sm:text-base"
-                    required
-                    aria-required="true"
-                  />
-                </div>
-                <div>
-                  <label htmlFor="contact-company" className="block text-xs sm:text-sm font-bold text-gray-700 mb-2">
-                    Company Name
-                  </label>
-                  <input
-                    type="text"
-                    id="contact-company"
-                    name="company"
-                    placeholder="Your clinic/pharmacy name"
-                    className="w-full px-3 py-3 sm:px-4 sm:py-4 border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-all bg-white text-sm sm:text-base"
-                  />
-                </div>
-              </div>
-
-              <div>
-                <label htmlFor="contact-source" className="block text-xs sm:text-sm font-bold text-gray-700 mb-2">
-                  How did you hear about us?
-                </label>
-                <select
-                  id="contact-source"
-                  name="source"
-                  className="w-full px-3 py-3 sm:px-4 sm:py-4 border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-all bg-white text-sm sm:text-base"
-                >
-                  <option value="">Select one...</option>
-                  <option value="search">Search Engine (Google, Bing, etc.)</option>
-                  <option value="referral">Referral from colleague/friend</option>
-                  <option value="social">Social Media</option>
-                  <option value="industry-event">Industry Event/Conference</option>
-                  <option value="trade-publication">Trade Publication/Newsletter</option>
-                  <option value="existing-customer">Existing Customer</option>
-                  <option value="other">Other</option>
-                </select>
-              </div>
-
-              <div>
-                <label htmlFor="contact-interest" className="block text-xs sm:text-sm font-bold text-gray-700 mb-2">
-                  Primary Interest <span className="text-red-600" aria-label="required">*</span>
-                </label>
-                <select
-                  id="contact-interest"
-                  name="interest"
-                  className="w-full px-3 py-3 sm:px-4 sm:py-4 border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-all bg-white text-sm sm:text-base"
-                  required
-                  aria-required="true"
-                >
-                  <option value="">What interests you most?</option>
-                  <option value="apis">APIs</option>
-                  <option value="vials">Sterile Vials</option>
-                  <option value="compounded">Compounded Medications</option>
-                  <option value="all">All Products</option>
-                </select>
-              </div>
-
-              <div>
-                <label htmlFor="contact-message" className="block text-xs sm:text-sm font-bold text-gray-700 mb-2">
-                  Message/Comments
-                </label>
-                <textarea
-                  id="contact-message"
-                  name="message"
-                  rows={4}
-                  placeholder="Tell us about your specific needs or questions..."
-                  className="w-full px-3 py-3 sm:px-4 sm:py-4 border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-all bg-white resize-none text-sm sm:text-base"
-                ></textarea>
-              </div>
-
-              <button
-                type="submit"
-                className="w-full bg-gradient-to-r from-blue-600 to-purple-600 text-white py-3 sm:py-4 md:py-5 rounded-xl text-base sm:text-lg font-bold shadow-xl hover:shadow-2xl transition-all duration-300 flex items-center justify-center gap-2 sm:gap-3 hover:scale-105"
-                aria-label="Submit contact form - Request a consultation"
+          <div className="space-y-4">
+            {faqs.map((faq, index) => (
+              <details
+                key={faq.question}
+                className="group rounded-2xl border border-gray-200 bg-white p-6 shadow-sm"
+                data-animate="true"
+                open={index === 0}
               >
-                <span>Request a Consultation</span>
-                <ArrowRightIcon className="w-4 h-4 sm:w-5 sm:h-5" />
-              </button>
-            </form>
+                <summary className="flex cursor-pointer items-center justify-between gap-4 text-left">
+                  <span className="text-lg font-semibold text-gray-900">{faq.question}</span>
+                  <PlusIcon className="h-5 w-5 text-medical-500 transition group-open:rotate-45" />
+                </summary>
+                <p className="mt-4 text-gray-600">{faq.answer}</p>
+              </details>
+            ))}
           </div>
         </div>
       </section>
 
-      {/* Footer - Redesigned */}
-      <footer className="relative bg-slate-900 text-white overflow-hidden">
-        {/* Subtle gradient background */}
-        <div className="absolute inset-0 bg-gradient-to-br from-slate-900 via-blue-950/30 to-slate-900"></div>
-
-        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          {/* Main Footer Content */}
-          <div className="py-16 border-b border-white/10">
-            <div className="grid md:grid-cols-12 gap-12">
-              {/* Brand Section - Takes more space */}
-              <div className="md:col-span-5">
-                <div className="flex items-center gap-3 mb-6">
-                  <Image
-                    src="/logo.png"
-                    alt="Compound Meds Logo"
-                    width={48}
-                    height={48}
-                    className="rounded-xl"
-                  />
-                  <span className="text-2xl font-bold">Compound Meds</span>
-                </div>
-                <p className="text-gray-400 text-base leading-relaxed mb-6 max-w-md">
-                  Premium pharmaceutical sourcing for pharmacies and clinics nationwide. We connect you with verified suppliers—all fulfillment is handled by licensed partners.
-                </p>
-
-                {/* Contact Info - More prominent */}
-                <div className="space-y-3 mb-8">
-                  <a href="tel:5612238133" className="flex items-center gap-3 text-gray-300 hover:text-white transition-colors group">
-                    <div className="w-10 h-10 rounded-xl bg-blue-600/10 flex items-center justify-center group-hover:bg-blue-600/20 transition-colors">
-                      <PhoneIcon className="w-5 h-5 text-blue-400" />
-                    </div>
-                    <span className="font-medium">(561) 223-8133</span>
-                  </a>
-                  <a href="mailto:hello@compoundmeds.com" className="flex items-center gap-3 text-gray-300 hover:text-white transition-colors group">
-                    <div className="w-10 h-10 rounded-xl bg-blue-600/10 flex items-center justify-center group-hover:bg-blue-600/20 transition-colors">
-                      <EnvelopeIcon className="w-5 h-5 text-blue-400" />
-                    </div>
-                    <span className="font-medium">hello@compoundmeds.com</span>
-                  </a>
-                </div>
-
-                
-              </div>
-
-              {/* Navigation Columns */}
-              <div className="md:col-span-7 grid grid-cols-2 sm:grid-cols-3 gap-8">
-                {/* Company */}
-                <div>
-                  <h4 className="font-bold text-white mb-4 text-sm uppercase tracking-wider">Company</h4>
-                  <div className="space-y-3">
-                    <a href="#about" className="block text-gray-400 hover:text-white transition-colors text-sm">About Us</a>
-                    <a href="#why-us" className="block text-gray-400 hover:text-white transition-colors text-sm">Why Us</a>
-                    <a href="#contact" className="block text-gray-400 hover:text-white transition-colors text-sm">Contact</a>
-                  </div>
-                </div>
-
-                {/* Products */}
-                <div>
-                  <h4 className="font-bold text-white mb-4 text-sm uppercase tracking-wider">Products</h4>
-                  <div className="space-y-3">
-                    <a href="#products" className="block text-gray-400 hover:text-white transition-colors text-sm">APIs</a>
-                    <a href="#products" className="block text-gray-400 hover:text-white transition-colors text-sm">Sterile Vials</a>
-                    <a href="#therapies" className="block text-gray-400 hover:text-white transition-colors text-sm">Therapies</a>
-                  </div>
-                </div>
-
-                {/* Legal */}
-                <div>
-                  <h4 className="font-bold text-white mb-4 text-sm uppercase tracking-wider">Legal</h4>
-                  <div className="space-y-3">
-                    <a href="/privacy-policy" className="block text-gray-400 hover:text-white transition-colors text-sm">Privacy Policy</a>
-                    <a href="/terms-of-service" className="block text-gray-400 hover:text-white transition-colors text-sm">Terms of Service</a>
-                    <a href="/hipaa-compliance" className="block text-gray-400 hover:text-white transition-colors text-sm">HIPAA Compliance</a>
-                  </div>
-                </div>
-              </div>
+      <section id="contact" className="bg-white px-6 py-20 lg:px-12">
+        <div className="mx-auto max-w-4xl">
+          <div className="mb-10 text-center" data-animate="true">
+            <div className="mx-auto mb-4 inline-flex items-center gap-2 rounded-full border border-medical-200 bg-medical-100 px-5 py-2">
+              <EnvelopeIcon className="h-4 w-4 text-medical-600" />
+              <span className="text-xs font-bold text-medical-700">GET IN TOUCH</span>
             </div>
+            <h2 className="text-3xl font-display font-bold text-gray-900 md:text-4xl lg:text-5xl">
+              Connect with our sourcing team
+            </h2>
+            <p className="mt-3 text-lg text-gray-600">
+              Licensed pharmaceutical partners. Nationwide supply. Response within 24 hours.
+            </p>
           </div>
 
-          {/* Compliance Disclaimer */}
-          <div className="py-8 border-b border-white/10">
-            <div className="bg-slate-800/50 rounded-2xl p-6 border border-white/5">
-              <div className="flex items-start gap-3 mb-4">
-                <ShieldCheckIcon className="w-5 h-5 text-blue-400 flex-shrink-0 mt-0.5" />
-                <h4 className="font-bold text-white text-sm uppercase tracking-wider">Important Disclaimer</h4>
-              </div>
-              <p className="text-xs text-gray-400 leading-relaxed">
-                Compound Meds is a pharmaceutical sourcing partner that connects licensed pharmacies and clinics with verified suppliers. We do not manufacture, compound, or directly dispense pharmaceutical products. All products are fulfilled by independent, licensed manufacturers, compounding pharmacies (503A and 503B facilities), and FDA-registered pharmaceutical suppliers. Product availability, regulatory compliance, and fulfillment are the responsibility of the individual supplier. Compound Meds facilitates connections and provides sourcing support but does not guarantee product availability, efficacy, or regulatory status. Healthcare providers are responsible for verifying all supplier credentials, product documentation, and compliance with applicable federal and state regulations before ordering or using any products. Compounded medications are not FDA-approved and are prepared by state-licensed compounding pharmacies. Consult appropriate regulatory guidance for your specific use case.
+          <div className="mb-8 grid gap-6 md:grid-cols-2">
+            {contactCards.map((card) => {
+              const Icon = card.icon;
+              return (
+                <div
+                  key={card.title}
+                  className="rounded-3xl border border-medical-100 bg-gradient-to-br from-medical-50 to-clean-50 p-8"
+                  data-animate="true"
+                >
+                  <Icon className="mb-4 h-10 w-10 text-medical-600" />
+                  <h3 className="text-lg font-bold text-gray-900">{card.title}</h3>
+                  <a href={card.href} className="mt-1 block text-2xl font-bold text-medical-600 hover:text-medical-700 break-words">
+                    {card.value}
+                  </a>
+                  {card.note && <p className="mt-2 text-sm text-gray-600">{card.note}</p>}
+                </div>
+              );
+            })}
+          </div>
+
+          <div className="rounded-3xl border border-gray-200 bg-gradient-to-br from-gray-50 to-medical-50/30 p-8 lg:p-12" data-animate="true">
+            <div className="mb-6 text-center">
+              <h3 className="text-2xl font-bold text-gray-900">HubSpot Form Placeholder</h3>
+              <p className="mt-2 text-gray-600">
+                Paste your HubSpot embed code below to replace this placeholder. Remove the placeholder div once the form
+                is live.
               </p>
             </div>
-          </div>
-
-          {/* Bottom Bar */}
-          <div className="py-6 flex flex-col sm:flex-row justify-between items-center gap-4">
-            <p className="text-sm text-gray-400">
-              © {new Date().getFullYear()} Compound Meds, LLC. All rights reserved.
-            </p>
-            <div className="flex items-center gap-2">
-              <span className="text-xs text-gray-500">Nationwide Coverage</span>
-              <span className="text-gray-600">•</span>
-              <span className="text-xs text-gray-500">Licensed Partners</span>
+            <div className="flex min-h-[320px] items-center justify-center rounded-2xl border-2 border-dashed border-medical-300 bg-white/60 p-12 text-center text-gray-600">
+              HubSpot form goes here.
             </div>
           </div>
         </div>
+      </section>
+
+      <footer className="relative overflow-hidden bg-gradient-to-br from-gray-900 via-medical-900 to-pharma-900 px-6 py-12 text-white lg:px-12">
+        <div className="absolute inset-0 opacity-10">
+          <div className="absolute top-0 right-0 h-96 w-96 rounded-full bg-medical-500 blur-3xl" />
+          <div className="absolute bottom-0 left-0 h-96 w-96 rounded-full bg-pharma-500 blur-3xl" />
+        </div>
+
+        <div className="relative z-10 mx-auto max-w-6xl">
+          <div className="mb-10 grid gap-8 md:grid-cols-4">
+            <div>
+              <Image
+                src="/compound-meds-logo.png"
+                alt="Compound Meds"
+                width={180}
+                height={60}
+                className="mb-4 h-12 w-auto brightness-0 invert"
+              />
+              <p className="text-sm text-gray-400">
+                Premium pharmaceutical sourcing for pharmacies and clinics nationwide.
+              </p>
+            </div>
+            <div>
+              <h4 className="mb-3 text-sm font-bold uppercase tracking-widest">Products</h4>
+              <div className="space-y-2 text-sm text-gray-300">
+                <a href="#products" className="block hover:text-white">
+                  APIs
+                </a>
+                <a href="#products" className="block hover:text-white">
+                  Sterile Vials
+                </a>
+                <a href="#products" className="block hover:text-white">
+                  Compounded Meds
+                </a>
+              </div>
+            </div>
+            <div>
+              <h4 className="mb-3 text-sm font-bold uppercase tracking-widest">Company</h4>
+              <div className="space-y-2 text-sm text-gray-300">
+                <a href="#why-us" className="block hover:text-white">
+                  Why Us
+                </a>
+                <a href="#testimonials" className="block hover:text-white">
+                  Testimonials
+                </a>
+                <a href="#contact" className="block hover:text-white">
+                  Contact
+                </a>
+              </div>
+            </div>
+            <div>
+              <h4 className="mb-3 text-sm font-bold uppercase tracking-widest">Contact</h4>
+              <div className="space-y-2 text-sm text-gray-300">
+                <a href="tel:5612238133" className="block hover:text-white">
+                  (561) 223-8133
+                </a>
+                <a href="mailto:hello@compoundmeds.com" className="block break-all hover:text-white">
+                  hello@compoundmeds.com
+                </a>
+              </div>
+            </div>
+          </div>
+
+          <div className="mb-6 rounded-2xl border border-botanical-500/20 bg-white/5 p-6 text-sm text-gray-300">
+            <p className="font-semibold uppercase tracking-widest text-botanical-200">Important Disclaimer</p>
+            <p className="mt-2 text-gray-300">
+              Compound Meds is a pharmaceutical sourcing partner that connects licensed pharmacies and clinics with verified suppliers.
+              We do not manufacture, compound, or directly dispense pharmaceutical products. All products are fulfilled by independent, licensed manufacturers,
+              compounding pharmacies (503A and 503B facilities), and FDA-registered suppliers.
+            </p>
+          </div>
+
+          <p className="border-t border-white/10 pt-6 text-center text-sm text-gray-400">
+            © {currentYear} Compound Meds, LLC. All rights reserved.
+          </p>
+        </div>
       </footer>
-    </div>
+    </main>
+  );
+}
+
+function QuestionBadge() {
+  return (
+    <span className="flex h-5 w-5 items-center justify-center rounded-full bg-medical-600 text-xs font-bold text-white">
+      ?
+    </span>
   );
 }
